@@ -8,7 +8,7 @@ $highlight-color: #d8d8d8;
 $icon-bg-color: rgba(255, 255, 255, 0.05);
 $icon-size: 35px;
 
-@import '~react-pro-sidebar/dist/scss/styles.scss';
+@import 'styles';
 body {
   margin: 0;
   height: 100vh;

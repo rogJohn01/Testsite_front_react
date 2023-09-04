@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
-import './formDrillTest.scss';
-import GetCardDeck from '../apis/form_api';
-import { wordContext } from '../wordContext';
+import './setUpForm.scss';
+import GetCardDeck from '../../apis/form_api';
+import { wordContext } from '../../contexts/wordContext';
 import axios from 'axios';
 
 
-const FormDrillTest = () => {
+const SetupForm = () => {
   const decks = GetCardDeck();
   const { ready, setReady } = useContext(wordContext);
   const { contents, setContents } = useContext(wordContext);
@@ -52,7 +52,7 @@ const FormDrillTest = () => {
     <main>
       <section className='quiz quiz-small'>
         <form className='setup-form'>
-          <h2>setup Drill</h2>
+          <h2>setup quiz</h2>
 
           <div className='form-control'>
             <label htmlFor="decks">Decks</label>
@@ -64,8 +64,8 @@ const FormDrillTest = () => {
               onChange={e => setSelectedDeck(e.target.value)} // Update state when selection changes
             >
               {decks.map((deck, index) => (
-                <option key={index} value={deck}>
-                  {deck}
+                <option key={index} value={deck.deck_name}>
+                  {deck.deck_name}
                 </option>
               ))}
             </select>
@@ -91,7 +91,7 @@ const FormDrillTest = () => {
               can't generate questions, please try different options
             </p>
           )}
-          <button type='submit' onClick={handleSubmit} className='submit-btn2'>
+          <button type='submit' onClick={handleSubmit} className='submit-btn'>
             start
           </button>
         </form>
@@ -100,4 +100,4 @@ const FormDrillTest = () => {
   )
 }
 
-export default FormDrillTest;
+export default SetupForm;

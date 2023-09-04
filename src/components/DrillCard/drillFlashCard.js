@@ -1,7 +1,7 @@
 import { useState, useEffect , useContext } from 'react';
 import axios from 'axios';
-import './flashcard.scss' 
-import { wordContext } from '../wordContext';
+import '../Flashcard/flashcard.scss'
+import { wordContext } from '../../contexts/wordContext';
 const moment = require('moment-timezone');
 
 const Flash7 = () => {

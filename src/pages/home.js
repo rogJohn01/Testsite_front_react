@@ -1,6 +1,6 @@
 
 
-import logo from '../images/home_entrance.jpg'
+import logo from '../assets/images/home_entrance.jpg'
 
 export default function Home(){
 

@@ -1,5 +1,5 @@
 
-import FormDrillTest from "../components/FormDrillTest"
+import FormDrillTest from "../components/DrillForm/FormDrillTest"
 
 
 

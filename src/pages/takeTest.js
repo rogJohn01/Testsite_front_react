@@ -1,8 +1,8 @@
-import { wordContext } from '../wordContext';
-import SetupForm from '../components/SetupForm';
-import Flash7 from '../components/flashcard7';
+import { wordContext } from '../contexts/wordContext';
+import SetupForm from '../components/SetupForm/SetupForm';
+import Flash7 from '../components/Flashcard/flashcard7';
 import { useContext, useState } from 'react';
-import ModalWindow from '../components/modal';
+import ModalWindow from '../components/Common/modal';
 
 export default function TakeTest(){
 

@@ -1,6 +1,6 @@
 
 import { useState, useEffect , useContext } from 'react';
-import { wordContext } from '../wordContext';
+import { wordContext } from '../../contexts/wordContext';
 import Button from '@mui/material/Button';
 import "./modal.scss"
 
