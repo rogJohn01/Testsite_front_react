@@ -64,8 +64,8 @@ const SetupForm = () => {
               onChange={e => setSelectedDeck(e.target.value)} // Update state when selection changes
             >
               {decks.map((deck, index) => (
-                <option key={index} value={deck}>
-                  {deck}
+                <option key={index} value={deck.deck_name}>
+                  {deck.deck_name}
                 </option>
               ))}
             </select>
