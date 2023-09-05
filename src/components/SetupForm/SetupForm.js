@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './setUpForm.scss';
 import GetCardDeck from '../../apis/form_api';
 import { wordContext } from '../../contexts/wordContext';
@@ -12,8 +12,16 @@ const SetupForm = () => {
   const { deckData , setDeckData} = useContext(wordContext) ;
 
   // Declare new state variables
+
   const [selectedDeck, setSelectedDeck] = useState(decks[0] || '');
   const [amount, setAmount] = useState(10);
+
+
+
+
+
+
+
 
   const fetchContents = async (deck , amount) => {
     try {

@@ -1,7 +1,7 @@
 import Sidebar from './components/Common/Sidebar';
 import { useContext, useState } from 'react';
 import SetupForm from './components/SetupForm/SetupForm';
-import Flash7 from './components/Flashcard/flashcard7';
+import Flash7 from './components/Flashcard/flashcard';
 import { wordContext } from './contexts/wordContext';
 import ResultTable from './pages/resultTable';
 import { Route, Switch, Redirect } from 'react-router-dom';

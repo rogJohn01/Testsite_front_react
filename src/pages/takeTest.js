@@ -1,6 +1,6 @@
 import { wordContext } from '../contexts/wordContext';
 import SetupForm from '../components/SetupForm/SetupForm';
-import Flash7 from '../components/Flashcard/flashcard7';
+import Flash7 from '../components/Flashcard/flashcard';
 import { useContext, useState } from 'react';
 import ModalWindow from '../components/Common/modal';
 

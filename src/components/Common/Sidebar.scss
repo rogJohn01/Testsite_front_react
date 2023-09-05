@@ -1,5 +1,6 @@
 // $gradient-bg: linear-gradient( 94.3deg,  rgba(30,30,30,1) 10.9%, rgba(81,84,115,1) 87.1% );
 // $sidebar-bg-color: $gradient-bg;
+
 $sidebar-bg-color:  white;
 $submenu-bg-color: rgba(255, 255, 255, 0.05);
 $submenu-bg-color-collapsed: rgba(29, 29, 29, 0.95);
@@ -8,7 +9,9 @@ $highlight-color: #d8d8d8;
 $icon-bg-color: rgba(255, 255, 255, 0.05);
 $icon-size: 35px;
 
-@import 'styles';
+
+// thank goodness to git!
+@import '~react-pro-sidebar/dist/scss/styles.scss';
 body {
   margin: 0;
   height: 100vh;

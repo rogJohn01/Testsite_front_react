@@ -35,6 +35,7 @@ const Flash7 = () => {
 
 
   const sendData = ( correctState) => {
+
     let wordData = {
         testid: testIndex , 
         word: contents[index].front ,
@@ -51,6 +52,7 @@ const Flash7 = () => {
 
   const sendResult =()=>{
     var totalCount = contents.length ; 
+
     let resultData = {
       test_id : testIndex , 
       test_deck : deckData , 
@@ -59,6 +61,7 @@ const Flash7 = () => {
       test_result_per: ((yesCount / totalCount)*100).toFixed(2) , 
       test_date:  moment().tz('Asia/Seoul').format() 
     }
+
     axios.post('http://localhost:3006/resultTable' , resultData).then(response =>{
       console.log(response.data) ;
     })
@@ -114,9 +117,9 @@ const Flash7 = () => {
 
   }
   // ...
-  var frontContent = contents[index] ? contents[index].front : "";
+  var frontContent = contents[index] ? contents[index].word_front : "";
   var backContent = contents[index]
-    ? contents[index].front+"\n"+contents[index].back.split('Examples:')[0].slice(0,200)
+    ? contents[index].word_front+"<br><br> <hr> <br>"+contents[index].word_back.split('Examples:')[0].slice(0,200)
     : "";
   // ...
 
@@ -135,7 +138,9 @@ const Flash7 = () => {
           <div className="word_form">
             {contents.length > 0 && (
               <div>
-                {isActive ?  backContent : frontContent}
+                  {isActive ?
+                      <div dangerouslySetInnerHTML={{ __html: backContent }} />
+                      : frontContent}
               </div>
             )}
           </div>
