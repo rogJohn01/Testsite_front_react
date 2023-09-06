@@ -9,7 +9,7 @@ const Flash7 = () => {
   const [showButton, setShowButton] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [noCount , setNoCount ] = useState(1) ; 
-  const [testIndex , setTestIndex] = useState(0) ; 
+  const [testIndex , setTestIndex] = useState(0) ;
 
   const {contents , setContents} = useContext(wordContext) ; 
   const { deckData , setDeckdata} = useContext(wordContext) ;
@@ -19,30 +19,32 @@ const Flash7 = () => {
 
   const getTestIndex = async () => {
     try {
-        const url ='http://localhost:3006/testIndex'; 
-        const response = await axios.get(url) ; 
-        const data = response.data[0].idx ; 
-        setTestIndex(data+1) ; 
+        const url ='http://localhost:3006/testIndex';
+        const response = await axios.get(url) ;
+        const data = response.data[0].idx ;
+        setTestIndex(data+1) ;
     } catch (error) {
-        console.error("error fetching testIndex: ", error ) ; 
+        console.error("error fetching testIndex: ", error ) ;
     }
   }
 
   useEffect(()=>{
     getTestIndex() ;
-  } , []) ; 
+  } , []) ;
 
 
 
   const sendData = ( correctState) => {
 
     let wordData = {
-        testid: testIndex , 
-        word: contents[index].front ,
+        wordId: contents[index].word_id ,
         isCorrect: correctState ,
-        time :  moment().tz('Asia/Seoul').format() 
+        test_form: "test" ,
+        testid: testIndex ,
+
+        word_date :  moment().tz('Asia/Seoul').format()
     }
-    axios.post('http://localhost:3006/tests3/' , wordData).then(response => {
+    axios.post('http://localhost:3006/send_word_result/' , wordData).then(response => {
         console.log(response.data) ; 
     })
     .catch(error => {
