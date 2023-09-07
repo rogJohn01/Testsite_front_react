@@ -4,7 +4,7 @@ import Flash7 from '../components/Flashcard/flashcard';
 import { useContext, useState } from 'react';
 import ModalWindow from '../components/Common/modal';
 
-export default function TakeTest(){
+export default function Take_test(){
 
 
     const {ready , setReady} = useContext(wordContext)

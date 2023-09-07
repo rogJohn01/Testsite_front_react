@@ -37,12 +37,13 @@ const Flash7 = () => {
   const sendData = ( correctState) => {
 
     let wordData = {
+
         wordId: contents[index].word_id ,
         isCorrect: correctState ,
         test_form: "test" ,
         testid: testIndex ,
-
-        word_date :  moment().tz('Asia/Seoul').format()
+        word_date :  moment().tz('Asia/Seoul').format() ,
+        word_deck :  deckData
     }
     axios.post('http://localhost:3006/send_word_result/' , wordData).then(response => {
         console.log(response.data) ; 
@@ -56,15 +57,18 @@ const Flash7 = () => {
     var totalCount = contents.length ; 
 
     let resultData = {
-      test_id : testIndex , 
-      test_deck : deckData , 
-      yes_cards : yesCount , 
+
+        //test_id : testIndex ,
+        yes_cards : yesCount ,
+        //no_cards : noCount ,
       total_cards : totalCount ,
-      test_result_per: ((yesCount / totalCount)*100).toFixed(2) , 
-      test_date:  moment().tz('Asia/Seoul').format() 
+      //test_result_per: ((yesCount / totalCount)*100).toFixed(2) ,
+      test_date:  moment().tz('Asia/Seoul').format() ,
+        test_deck : deckData ,
+
     }
 
-    axios.post('http://localhost:3006/resultTable' , resultData).then(response =>{
+    axios.post('http://localhost:3006/test_result_table' , resultData).then(response =>{
       console.log(response.data) ;
     })
     .catch(error => {

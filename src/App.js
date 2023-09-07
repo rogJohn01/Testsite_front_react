@@ -5,7 +5,7 @@ import Flash7 from './components/Flashcard/flashcard';
 import { wordContext } from './contexts/wordContext';
 import ResultTable from './pages/resultTable';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import TakeTest from './pages/takeTest';
+import Take_test from './pages/take_test';
 import Home from './pages/home';
 import Review_table from './pages/review_link';
 import StartDrill from './pages/startDrill';
@@ -64,7 +64,7 @@ function App() {
     <Switch>
           <Route path='/reviewTable/:test_id'  component={Review_table} /> 
           <Route path="/ResultTable" component={ResultTable} />
-          <Route path="/TakeTest" component={TakeTest} />
+          <Route path="/Take_test" component={Take_test} />
           <Route path="/TakeDrill" component={StartDrill} />
           <Route path='/home' component={Home} /> 
           <Route path='/' component={Home} / > 

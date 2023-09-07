@@ -82,7 +82,7 @@ const Sidebar = ({
           </MenuItem>
           {/* <MenuItem icon={<FaGem />}>Components </MenuItem> */}
           <MenuItem icon={<FaGem />}>
-            Take Test <Link to="/TakeTest" />
+            Take Test <Link to="/Take_test" />
           </MenuItem>
           <MenuItem icon={< DiCodeigniter/>}>
             Start Drill <Link to="/TakeDrill" />

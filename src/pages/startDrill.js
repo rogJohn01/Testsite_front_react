@@ -1,5 +1,5 @@
 
-import FormDrillTest from "../components/DrillForm/FormDrillTest"
+import FormDrill from "../components/DrillForm/FormDrill"
 
 
 
@@ -18,7 +18,7 @@ export default function StartDrill(){
 
     return (
         <div style={containerStyle}>
-             <FormDrillTest/> 
+             <FormDrill/>
 
         </div>
     )

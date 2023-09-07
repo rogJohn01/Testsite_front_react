@@ -12,7 +12,7 @@ const ModalWindow =() =>{
     const {testFinished , setTestFinished} = useContext(wordContext) 
     const {ready , setReady} = useContext(wordContext)
     
-    var yesCount2 = yesCount+1 
+    var yesCount2 = yesCount-1
 
     var res = String(yesCount2)+" / "+String(contents.length)
     var res_percentage = (yesCount2/contents.length*100).toFixed(0)+"%"
