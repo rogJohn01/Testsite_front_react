@@ -1,25 +1,27 @@
 import { useState, useEffect , useContext } from 'react';
 import axios from 'axios';
-import '../Flashcard/flashcard.scss'
+import './drillFlashCard.scss'
 import { wordContext } from '../../contexts/wordContext';
 const moment = require('moment-timezone');
 
-const Flash7 = () => {
+const DrillCard = () => {
   const [index, setIndex] = useState(0);
   const [showButton, setShowButton] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [noCount , setNoCount ] = useState(1) ; 
   const [testIndex , setTestIndex] = useState(0) ; 
 
-  const {contents , setContents} = useContext(wordContext) ; 
-  const { deckData , setDeckdata} = useContext(wordContext) ;
-  const {yesCount , setYesCount } = useContext(wordContext)
 
-  const {testFinished , setTestFinished} = useContext(wordContext) 
+    const {drillContents , setDrillContents}= useContext(wordContext) ;
+    const {drillDeckData , setDrillDeckData }= useContext(wordContext) ;
+    const {drillYesCount , setDrillYesCount} = useContext(wordContext) ;
 
-  const getTestIndex = async () => {
+
+    const {testFinished , setTestFinished} = useContext(wordContext)
+
+  const getDrillIndex = async () => {
     try {
-        const url ='http://localhost:3006/testIndex'; 
+        const url ='http://localhost:3006/drill/drill_index';
         const response = await axios.get(url) ; 
         const data = response.data[0].idx ; 
         setTestIndex(data+1) ; 
@@ -29,15 +31,18 @@ const Flash7 = () => {
   }
 
   useEffect(()=>{
-    getTestIndex() ;
-  } , []) ; 
+    getDrillIndex() ;
+  } , []) ;
 
 
+    useEffect(() => {
+        console.log('Drill Contents after API call:', drillContents);
+    }, [drillContents]);
 
-  const sendData = ( correctState) => {
+  const sendDrillWordData = ( correctState) => {
     let wordData = {
         testid: testIndex , 
-        word: contents[index].front ,
+        word: drillContents[index].front ,
         isCorrect: correctState ,
         time :  moment().tz('Asia/Seoul').format() 
     }
@@ -49,14 +54,14 @@ const Flash7 = () => {
     })
   }
 
-  const sendResult =()=>{
-    var totalCount = contents.length ; 
+  const sendDrillResult =()=>{
+    var totalCount = drillContents.length ;
     let resultData = {
       test_id : testIndex , 
-      test_deck : deckData , 
-      yes_cards : yesCount , 
+      test_deck : drillDeckData ,
+      yes_cards : drillYesCount ,
       total_cards : totalCount ,
-      test_result_per: ((yesCount / totalCount)*100).toFixed(2) , 
+      //test_result_per: ((yesCount / totalCount)*100).toFixed(2) ,
       test_date:  moment().tz('Asia/Seoul').format() 
     }
     axios.post('http://localhost:3006/resultTable' , resultData).then(response =>{
@@ -80,13 +85,13 @@ const Flash7 = () => {
   }
   const moveIndex = ()=> {
    
-    if(index < contents.length - 1) {
+    if(index < drillContents.length - 1) {
         setIndex(index + 1);
     }else {
-        sendResult() ; 
+        sendDrillResult() ;
         setTestFinished(true) ; 
         setIndex(0);
-        setYesCount(1) ; 
+        setDrillYesCount(1) ;
         setNoCount(1) ; 
       }
   }
@@ -96,10 +101,10 @@ const Flash7 = () => {
     console.log("isActive: " , isActive)
     moveIndex() ; 
     setIsActive(!isActive ); 
-    const updatedYesCount = yesCount+1 
-    setYesCount(updatedYesCount)
-    sendData(true) ; 
-    console.log("yesCnt: " , yesCount)
+    const updatedYesCount = drillYesCount+1
+    setDrillYesCount(updatedYesCount)
+    sendDrillWordData(true) ;
+    console.log("yesCnt: " , drillYesCount)
   }
   
   const noButton = () => {
@@ -108,16 +113,27 @@ const Flash7 = () => {
     setIsActive(!isActive); 
 
     setNoCount(noCount +1)
-    sendData(false ) ; 
+      sendDrillWordData(false) ;
 
     console.log("noCnt: " , noCount)
 
   }
-  // ...
-  var frontContent = contents[index] ? contents[index].front : "";
-  var backContent = contents[index]
-    ? contents[index].front+"\n"+contents[index].back.split('Examples:')[0].slice(0,200)
-    : "";
+    let frontContent = "";
+    let backContent = "";
+
+    try {
+        if (drillContents && drillContents[index]) {
+            frontContent = drillContents[index].word_front || "";
+
+            const wordFront = drillContents[index].word_front || "";
+            const wordBack = drillContents[index].word_back || "";
+            const wordBackExample = wordBack.split('Examples:')[0] || "";
+
+            backContent = `${wordFront}\n${wordBackExample.slice(0, 200)}`;
+        }
+    } catch (error) {
+        console.error('Error while setting frontContent and backContent:', error);
+    }
   // ...
 
 
@@ -127,13 +143,13 @@ const Flash7 = () => {
       <div className="quiz-container">
         <div className='card-container'>
           <p className='card-index'>
-              {index+1}/{contents.length}
+              {index+1}/{drillContents.length}
           </p>
         </div>
    
         <div className="quiz-header">
           <div className="word_form">
-            {contents.length > 0 && (
+            {drillContents.length > 0 && (
               <div>
                 {isActive ?  backContent : frontContent}
               </div>
@@ -150,4 +166,4 @@ const Flash7 = () => {
   );
 };
 
-export default Flash7;
+export default DrillCard ;

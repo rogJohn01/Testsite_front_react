@@ -5,13 +5,13 @@ import Button from '@mui/material/Button';
 import "./modal.scss"
 
 
-const ModalWindow =() =>{
-    
-    const {contents , setContents} = useContext(wordContext) ; 
+const drillModalWindow =() =>{
+
+    const {contents , setContents} = useContext(wordContext) ;
     const {yesCount , setYesCount } = useContext(wordContext)
-    const {testFinished , setTestFinished} = useContext(wordContext) 
+    const {testFinished , setTestFinished} = useContext(wordContext)
     const {ready , setReady} = useContext(wordContext)
-    
+
 
     var res = String(yesCount)+" / "+String(contents.length)
     var res_percentage = (yesCount/contents.length*100).toFixed(0)+"%"
@@ -36,7 +36,7 @@ const ModalWindow =() =>{
     return (
         <div className="modal-content">
             <h2>
-                Test results 
+                Test results
             </h2>
             <p className='card-index'>
 
@@ -46,12 +46,12 @@ const ModalWindow =() =>{
                 {res_percentage}
             </p>
             <div className='modal_button_container'>
-            <Button variant="contained" color="primary" className='modal_button' onClick={newTestButton}>
-                Take new Test 
-            </Button>
-            <Button variant="contained" color="primary" className='modal_button' onClick={TestDrillButton}>
-                Take Drill Test 
-            </Button>
+                <Button variant="contained" color="primary" className='modal_button' onClick={newTestButton}>
+                    Take new Test
+                </Button>
+                <Button variant="contained" color="primary" className='modal_button' onClick={TestDrillButton}>
+                    Take Drill Test
+                </Button>
 
             </div>
 
@@ -59,4 +59,4 @@ const ModalWindow =() =>{
     )
 }
 
-export default ModalWindow 
+export default drillModalWindow

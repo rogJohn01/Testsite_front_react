@@ -8,7 +8,7 @@ const Flash7 = () => {
   const [index, setIndex] = useState(0);
   const [showButton, setShowButton] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const [noCount , setNoCount ] = useState(1) ; 
+  const [noCount , setNoCount ] = useState(0) ;
   const [testIndex , setTestIndex] = useState(0) ;
 
   const {contents , setContents} = useContext(wordContext) ; 
@@ -45,6 +45,7 @@ const Flash7 = () => {
         word_date :  moment().tz('Asia/Seoul').format() ,
         word_deck :  deckData
     }
+
     axios.post('http://localhost:3006/send_word_result/' , wordData).then(response => {
         console.log(response.data) ; 
     })
@@ -59,14 +60,16 @@ const Flash7 = () => {
     let resultData = {
 
         //test_id : testIndex ,
-        yes_cards : yesCount ,
+        yes_cards : yesCount,
         //no_cards : noCount ,
       total_cards : totalCount ,
       //test_result_per: ((yesCount / totalCount)*100).toFixed(2) ,
-      test_date:  moment().tz('Asia/Seoul').format() ,
+        test_date: moment().tz('Asia/Seoul').format('YYYY-MM-DD HH:mm:ss') ,
         test_deck : deckData ,
 
     }
+
+      console.log('Sending resultData:', resultData);
 
     axios.post('http://localhost:3006/test_result_table' , resultData).then(response =>{
       console.log(response.data) ;
@@ -75,6 +78,12 @@ const Flash7 = () => {
       console.log("there is an error" , error) ; 
     })
   }
+
+
+
+
+
+
 
 
   const handleClick = () => {
@@ -92,34 +101,45 @@ const Flash7 = () => {
     if(index < contents.length - 1) {
         setIndex(index + 1);
     }else {
-        sendResult() ; 
-        setTestFinished(true) ; 
+        setTestFinished(true) ;
+
+        setIsActive(false); // reset the active state of the card
+
         setIndex(0);
-        setYesCount(1) ; 
-        setNoCount(1) ; 
-      }
+        setNoCount(0) ;
+        setTestIndex(testIndex+1) ;
+
+        sendResult() ;
+
+    }
   }
 
   const yesButton = () => {
-    
-    console.log("isActive: " , isActive)
-    moveIndex() ; 
-    setIsActive(!isActive ); 
-    const updatedYesCount = yesCount+1 
-    setYesCount(updatedYesCount)
-    sendData(true) ; 
+
+      setYesCount( yesCount+1 )
+
+      console.log("isActive: " , isActive)
+    setIsActive(!isActive );
+
+    sendData(true) ;
     console.log("yesCnt: " , yesCount)
+
+      moveIndex() ;
+
   }
   
   const noButton = () => {
-    console.log("isActive: " , isActive)
-    moveIndex() ; 
-    setIsActive(!isActive); 
 
-    setNoCount(noCount +1)
-    sendData(false ) ; 
+      setNoCount(noCount +1)
+
+      console.log("isActive: " , isActive)
+    setIsActive(!isActive);
+
+    sendData(false ) ;
 
     console.log("noCnt: " , noCount)
+
+      moveIndex() ;
 
   }
   // ...

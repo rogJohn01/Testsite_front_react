@@ -22,17 +22,26 @@ const FormDrill = () => {
   const { contents, setContents } = useContext(wordContext);
   const { deckData , setDeckData} = useContext(wordContext) ;
 
+
+  const { readyDrill, setReadyDrill, drillContents, setDrillContents ,drillDeckData, setDrillDeckData } = useContext(wordContext);
+
+
+
   // Declare new state variables
   const [selectedDeck, setSelectedDeck] = useState(decks[0]?.deck_name || '');
   const [amount, setAmount] = useState(10);
 
-  const fetchContents = async (deck, amount) => {
+  const fetchDrillContents = async (deck, amount) => {
     if (deck && amount) {
       try {
         const url = `http://localhost:3006/drill/words/${deck}/${amount}`;
         const response = await axios.get(url);
         const { data } = response;
-        setContents(data);
+        console.log("drillcontents: " , drillContents)
+
+        setDrillContents(data);
+        console.log("drillcontents: " , drillContents)
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -43,7 +52,8 @@ const FormDrill = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setReady(true);
+
+    setReadyDrill(true);
 
     const form = e.currentTarget.closest("form");
     const deck = form.elements.decks.value;
@@ -53,8 +63,8 @@ const FormDrill = () => {
     console.log("deck: ", deck);
     console.log("amount: ", amount);
 
-    setDeckData(deck);
-    fetchContents(deck, amount);
+    setDrillDeckData(deck);
+    fetchDrillContents(deck, amount);
     console.log('its ready');
   }
 
@@ -85,7 +95,7 @@ const FormDrill = () => {
             { /* drill options */ }
             <div className='form-control'>
               <label htmlFor="decks">Drill options </label>
-             
+
             </div>
 
             {/* amount of cards */}
