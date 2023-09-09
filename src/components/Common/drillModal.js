@@ -5,38 +5,50 @@ import Button from '@mui/material/Button';
 import "./modal.scss"
 
 
-const drillModalWindow =() =>{
+const DrillModalWindow =() =>{
 
-    const {contents , setContents} = useContext(wordContext) ;
-    const {yesCount , setYesCount } = useContext(wordContext)
+    const {drillContents , setDrillContents}= useContext(wordContext) ;
+    const {drillYesCount , setDrillYesCount} = useContext(wordContext) ;
     const {testFinished , setTestFinished} = useContext(wordContext)
     const {ready , setReady} = useContext(wordContext)
 
 
-    var res = String(yesCount)+" / "+String(contents.length)
-    var res_percentage = (yesCount/contents.length*100).toFixed(0)+"%"
+    const {readyDrill , setReadyDrill} = useContext(wordContext)
+    const {drillFinished , setDrillFinished } = useContext(wordContext)
+
+
+    var res = String(drillYesCount)+" / "+String(drillContents.length)
+    var res_percentage = (drillYesCount/drillContents.length*100).toFixed(0)+"%"
 
 
 
-    const newTestButton=()=>{
+    const newDrillButton=()=>{
         console.log("take new test")
-        setTestFinished(false)
-        setReady(false)
-        setYesCount(0) ;
 
-
+        setDrillFinished(false)
+        setReadyDrill(false)
+        setDrillYesCount(0) ;
     }
 
     const TestDrillButton=()=>{
         console.log("take the drill test")
 
     }
+    const studyTheWrongsButton=()=>{
 
+        // redirect to the modal!
+        console.log("take different drill")
+        setTestFinished(false)
+        setReady(false)
+        setDrillYesCount(0) ;
+
+
+    }
 
     return (
         <div className="modal-content">
             <h2>
-                Test results
+                Drill results
             </h2>
             <p className='card-index'>
 
@@ -46,11 +58,11 @@ const drillModalWindow =() =>{
                 {res_percentage}
             </p>
             <div className='modal_button_container'>
-                <Button variant="contained" color="primary" className='modal_button' onClick={newTestButton}>
-                    Take new Test
+                <Button variant="contained" color="primary" className='modal_button' onClick={newDrillButton}>
+                    Take new Drill
                 </Button>
-                <Button variant="contained" color="primary" className='modal_button' onClick={TestDrillButton}>
-                    Take Drill Test
+                <Button variant="contained" color="primary" className='modal_button' onClick={studyTheWrongsButton}>
+                    Take Different Drill
                 </Button>
 
             </div>
@@ -59,4 +71,4 @@ const drillModalWindow =() =>{
     )
 }
 
-export default drillModalWindow
+export default DrillModalWindow

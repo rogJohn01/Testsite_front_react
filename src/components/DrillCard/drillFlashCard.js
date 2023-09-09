@@ -5,18 +5,18 @@ import { wordContext } from '../../contexts/wordContext';
 const moment = require('moment-timezone');
 
 const DrillCard = () => {
-  const [index, setIndex] = useState(0);
-  const [showButton, setShowButton] = useState(false);
+    const [index, setIndex] = useState(0);
+    const [showButton, setShowButton] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [noCount , setNoCount ] = useState(1) ; 
-  const [testIndex , setTestIndex] = useState(0) ; 
+  const [drillIndex , setDrillIndex] = useState(0) ;
 
 
     const {drillContents , setDrillContents}= useContext(wordContext) ;
     const {drillDeckData , setDrillDeckData }= useContext(wordContext) ;
     const {drillYesCount , setDrillYesCount} = useContext(wordContext) ;
 
-
+    const { drillFinished, setDrillFinished } = useContext(wordContext)
     const {testFinished , setTestFinished} = useContext(wordContext)
 
   const getDrillIndex = async () => {
@@ -24,7 +24,7 @@ const DrillCard = () => {
         const url ='http://localhost:3006/drill/drill_index';
         const response = await axios.get(url) ; 
         const data = response.data[0].idx ; 
-        setTestIndex(data+1) ; 
+        setDrillIndex(data+1) ;
     } catch (error) {
         console.error("error fetching testIndex: ", error ) ; 
     }
@@ -40,31 +40,36 @@ const DrillCard = () => {
     }, [drillContents]);
 
   const sendDrillWordData = ( correctState) => {
-    let wordData = {
-        testid: testIndex , 
-        word: drillContents[index].front ,
-        isCorrect: correctState ,
-        time :  moment().tz('Asia/Seoul').format() 
-    }
-    axios.post('http://localhost:3006/tests3/' , wordData).then(response => {
-        console.log(response.data) ; 
-    })
-    .catch(error => {
-        console.error("there is an error" , error) ; 
-    })
+
+      let wordData = {
+
+          wordId: drillContents[index].word_id ,
+          isCorrect: correctState ,
+          test_form: "drill" ,
+          drillid: drillIndex ,
+          word_date :  moment().tz('Asia/Seoul').format() ,
+          word_deck :  drillDeckData
+      }
+
+      axios.post('http://localhost:3006/send_word_result/' , wordData).then(response => {
+          console.log(response.data) ;
+      })
+          .catch(error => {
+              console.error("there is an error" , error) ;
+          })
   }
 
-  const sendDrillResult =()=>{
+
+    const sendDrillResult =()=>{
     var totalCount = drillContents.length ;
     let resultData = {
-      test_id : testIndex , 
-      test_deck : drillDeckData ,
       yes_cards : drillYesCount ,
       total_cards : totalCount ,
-      //test_result_per: ((yesCount / totalCount)*100).toFixed(2) ,
-      test_date:  moment().tz('Asia/Seoul').format() 
+      drill_date:  moment().tz('Asia/Seoul').format('YYYY-MM-DD HH:mm:ss') ,
+        drill_deck : drillDeckData ,
+
     }
-    axios.post('http://localhost:3006/resultTable' , resultData).then(response =>{
+    axios.post('http://localhost:3006/drill/drill_result_table' , resultData).then(response =>{
       console.log(response.data) ;
     })
     .catch(error => {
@@ -88,12 +93,15 @@ const DrillCard = () => {
     if(index < drillContents.length - 1) {
         setIndex(index + 1);
     }else {
+        setDrillFinished(true) ;
+
+        setDrillIndex(0);
+        setDrillYesCount(0) ;
+        setNoCount(0) ;
+
         sendDrillResult() ;
-        setTestFinished(true) ; 
-        setIndex(0);
-        setDrillYesCount(1) ;
-        setNoCount(1) ; 
-      }
+
+    }
   }
 
   const yesButton = () => {

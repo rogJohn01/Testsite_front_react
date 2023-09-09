@@ -2,7 +2,7 @@
 import FormDrill from "../components/DrillForm/FormDrill"
 
 import { wordContext } from '../contexts/wordContext';
-import drillModalWindow from "../components/Common/drillModal";
+import DrillModalWindow from "../components/Common/drillModal";
 import drillCard from "../components/DrillCard/drillFlashCard";
 import { useContext } from 'react';
 import DrillCard from "../components/DrillCard/drillFlashCard";
@@ -25,7 +25,7 @@ export default function StartDrill(){
         <div style={containerStyle}>
             {!readyDrill && <FormDrill/>}
             {readyDrill && !drillFinished && <DrillCard/>}
-            {drillFinished && <drillModalWindow/>}
+            {drillFinished && <DrillModalWindow/>}
 
         </div>
     )
