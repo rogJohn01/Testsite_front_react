@@ -137,7 +137,7 @@ const DrillCard = () => {
             const wordBack = drillContents[index].word_back || "";
             const wordBackExample = wordBack.split('Examples:')[0] || "";
 
-            backContent = `${wordFront}\n${wordBackExample.slice(0, 200)}`;
+            backContent = `${wordFront}<br><br> <hr> <br>${wordBackExample.slice(0, 300)}`;
         }
     } catch (error) {
         console.error('Error while setting frontContent and backContent:', error);
@@ -159,7 +159,9 @@ const DrillCard = () => {
           <div className="word_form">
             {drillContents.length > 0 && (
               <div>
-                {isActive ?  backContent : frontContent}
+                  {isActive ?
+                      <div dangerouslySetInnerHTML={{ __html: backContent }} />
+                      : frontContent}
               </div>
             )}
           </div>

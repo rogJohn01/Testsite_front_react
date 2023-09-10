@@ -9,9 +9,11 @@ const Flash7 = () => {
   const [showButton, setShowButton] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [noCount , setNoCount ] = useState(0) ;
-  const [testIndex , setTestIndex] = useState(0) ;
 
-  const {contents , setContents} = useContext(wordContext) ; 
+
+  const {testIndex , setTestIndex} = useContext(wordContext) ;
+
+    const {contents , setContents} = useContext(wordContext) ;
   const { deckData , setDeckdata} = useContext(wordContext) ;
   const {yesCount , setYesCount } = useContext(wordContext)
 
@@ -145,7 +147,7 @@ const Flash7 = () => {
   // ...
   var frontContent = contents[index] ? contents[index].word_front : "";
   var backContent = contents[index]
-    ? contents[index].word_front+"<br><br> <hr> <br>"+contents[index].word_back.split('Examples:')[0].slice(0,200)
+    ? contents[index].word_front+"<br><br> <hr> <br>"+contents[index].word_back.split('Examples:')[0].slice(0,300)
     : "";
   // ...
 

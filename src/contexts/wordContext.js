@@ -10,6 +10,9 @@ const WordContextProvider = ({ children }) => {
     const [deckData, setDeckData] = useState('');
     const [testFinished, setTestFinished] = useState(false);
     const [yesCount, setYesCount] = useState(0);
+    const [testIndex , setTestIndex] = useState(0) ;
+
+
 
     // New drill-specific states
     const [readyDrill, setReadyDrill] = useState(false);
@@ -26,7 +29,7 @@ const WordContextProvider = ({ children }) => {
             deckData, setDeckData,
             testFinished, setTestFinished,
             yesCount, setYesCount,
-
+            testIndex , setTestIndex,
             // New drill-specific states
             readyDrill, setReadyDrill,
             drillFinished, setDrillFinished,
