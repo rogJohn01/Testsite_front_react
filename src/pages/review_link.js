@@ -6,8 +6,8 @@ import axios from 'axios';
 
 
 const columns = [
-    { field: 'testId', headerName: 'test-id', minWidth: 200 , },
-    { field: 'word', headerName: 'word',  minWidth: 200 , },
+    { field: 'test_id', headerName: 'test-id', minWidth: 200 , },
+    { field: 'word_front', headerName: 'word',  minWidth: 200 , },
     { field: 'iscorrect', headerName: 'status',  minWidth: 200 ,
     valueFormatter: (params) => params.value === 1 ? 'O' : 'X', },
     { field: 'testdate', headerName: 'word-test-date', minWidth: 180 , }
@@ -20,7 +20,7 @@ export default function Review_table({ match }){
 
     const fetchReviewTable = async (testId) => {
         try {
-            const url = `http://localhost:3006/tests/${testId}`;
+            const url = `http://localhost:3006/record/test_reviews/${testId}`;
             const response = await axios.get(url) ; 
 
             const data = response.data.map((item, index) => ({

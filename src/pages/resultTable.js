@@ -32,7 +32,7 @@ export default function ResultTable() {
 
   const fetchTableResult = async () => {
     try {
-      const url = 'http://localhost:3006/resultTable';
+      const url = 'http://localhost:3006/record/result_table';
       const response = await axios.get(url);
       const data = response.data;
       setContent(data);
@@ -107,7 +107,7 @@ export default function ResultTable() {
                         <TableCell key={column.id}align={column.center ? 'center' : 'inherit'}>
                           {column.id ==='view_link' ? 
                           <>
-                           <a href={`http://localhost:3007/ReviewTable/${row.test_id}`} target="_blank" rel="noopener noreferrer">
+                           <a href={`http://localhost:3000/ReviewTable/${row.test_id}`} target="_blank" rel="noopener noreferrer">
 
                               Review 
                               <FaRegLaughWink/> 
