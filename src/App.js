@@ -9,6 +9,7 @@ import Take_test from './pages/take_test';
 import Home from './pages/home';
 import Review_table from './pages/review_link';
 import StartDrill from './pages/startDrill';
+import Statistics from "./pages/statistics";
 
 
 
@@ -64,6 +65,7 @@ function App() {
     <Switch>
           <Route path='/reviewTable/:test_id'  component={Review_table} /> 
           <Route path="/ResultTable" component={ResultTable} />
+          <Route path="/statistics" component={Statistics} />
           <Route path="/Take_test" component={Take_test} />
           <Route path="/TakeDrill" component={StartDrill} />
           <Route path='/home' component={Home} /> 

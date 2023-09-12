@@ -22,6 +22,7 @@ import {
   FaHeart,
   FaTable,
 } from 'react-icons/fa';
+import { ImStatsBars } from 'react-icons/im';
 
 import { DiCodeigniter } from "react-icons/di";
 
@@ -93,17 +94,12 @@ const Sidebar = ({
                 Records <Link to="/ResultTable" />
           </MenuItem >
 
-          <SubMenu
-            suffix={<span className="badge yellow">3</span>}
-            title={'Statistics'}
-            icon={<FaRegLaughWink />}
-          >
-            <MenuItem>
-              Submenu 1 <Link to="/submenu1" />
-            </MenuItem>
-            <MenuItem>Submenu 2</MenuItem>
-            <MenuItem>Submenu 3</MenuItem>
-          </SubMenu>
+
+          <MenuItem icon={<ImStatsBars />}>
+            Statistics <Link to="/statistics" />
+          </MenuItem >
+
+
         
         
         </Menu>
