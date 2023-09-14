@@ -20,10 +20,11 @@ $button-text-color: white;
 	
 		.quiz-container {
 			display: flex;
-		
- 	
+
+			flex-direction: column; // Add this to stack child elements vertically
+
 			align-items: center;
-			justify-content: center;	
+			justify-content: flex-start; // Aligns items to the top
 
 			width: 60%;
 			height: 80%;
@@ -38,16 +39,21 @@ $button-text-color: white;
 			display: flex;
 			flex-direction: column;
 			justify-content: flex-start;
-			align-items: flex-end;
-	
+			align-items: flex-start; // Aligns items to the left
+			width: 100%; // Add this to occupy full width
+			padding-top: 1rem;  // Add padding at the top to prevent clipping
+
 			.card-index {
-				font-size: 1rem;
-				margin-bottom: 2rem;
+				font-size: 0.6rem;
+				margin: 0.2rem 0.5rem; // Reduce margin to prevent it from going too far outside
 				text-align: left;
 				text-transform: capitalize;
 				letter-spacing: var(--spacing);
 				color: blue;
-			  }
+				padding: 5px; // Optional padding
+				background-color: rgba(0, 0, 255, 0.1); // Optional background color
+				border-radius: 50%; // Optional rounded corners
+			}
 		
 		}
 
@@ -60,8 +66,16 @@ $button-text-color: white;
 			text-align: center ; 
 			font-size: 1.5rem ; 
 			 padding: 7rem;
+
 		}
-	
+		.word_content {
+			max-height: 500px; // You can set this to whatever you prefer
+
+			overflow-y: auto; // Enable vertical scroll
+			width: 120%; // Setting width to 80% of the parent container
+
+		}
+
 		.button-container {
 			display: none;
 	

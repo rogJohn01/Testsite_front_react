@@ -147,7 +147,7 @@ const Flash7 = () => {
   // ...
   var frontContent = contents[index] ? contents[index].word_front : "";
   var backContent = contents[index]
-    ? contents[index].word_front+"<br><br> <hr> <br>"+contents[index].word_back.split('Examples:')[0].slice(0,300)
+    ? contents[index].word_front+"<br><br> <hr> <br>"+contents[index].word_back.split('Examples:')[0]
     : "";
   // ...
 
@@ -157,16 +157,16 @@ const Flash7 = () => {
       
       <div className="quiz-container">
         <div className='card-container'>
-          <p className='card-index'>
-              {index+1}/{contents.length}
-          </p>
+            <p className='card-index'>
+                {index+1}/{contents.length}
+            </p>
         </div>
    
         <div className="quiz-header">
           <div className="word_form">
             {contents.length > 0 && (
-              <div>
-                  {isActive ?
+                <div className="word_content" >
+                {isActive ?
                       <div dangerouslySetInnerHTML={{ __html: backContent }} />
                       : frontContent}
               </div>
