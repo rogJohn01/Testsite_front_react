@@ -5,6 +5,8 @@ import moment from 'moment';
 import MyPieChart from "../components/graphs/piechart";
 import PieChart from "../components/graphs/piechart";
 import Barchart from "../components/graphs/barchart";
+import Dropdown from "../components/graphs/dropdown";
+import { Container } from '@mui/material';
 
 
 const formatCalendarData = (apiData) => {
@@ -68,12 +70,16 @@ const fetchBarData = async (setBarData) => {
         console.error('Error fetching calendar data:', error);
     }
 };
+const dataArray = [1, 2, 3, 4, 5]; // This array could be your data source
+
 
 
 const Statistics = () => {
     const [calendarData, setCalendarData] = useState([]);
     const [coverageData , setCoverageData ] = useState(0)
     const [barData , setBarData ] = useState([]) ;
+    const [deckData, setDeckData] = useState([]);
+
 
     useEffect(() => {
         fetchCalendarData(setCalendarData);
@@ -81,19 +87,17 @@ const Statistics = () => {
         fetchBarData(setBarData);
     }, []);
 
+    const handleDropdownChange = (value) => {
+        setDeckData(value);
+    };
+
+
 
     console.log("Current calendarData state:", calendarData); // Debug line
     console.log("Current coverageData state:", coverageData);  // Debug line
     console.log("Current barData state:", barData);  // Debug line
 
 
-    const data = [
-        { test: 'Test 1', score: 90 },
-        { test: 'Test 2', score: 85 },
-        { test: 'Test 3', score: 78 },
-        { test: 'Test 4', score: 94 },
-        { test: '2022-9-39', score: 88 },
-    ];
     const averageScore = barData.reduce((acc, curr) => acc + parseFloat(curr.score), 0) / barData.length;
 
 
@@ -134,29 +138,38 @@ const Statistics = () => {
         marginTop: '60px'
     };
 
-        return (
-            <div>
-                <h1>My Statistics</h1>
-                <div style={calendarStyle}>
-                    <MyResponsiveCalendar data={calendarData} />
-                </div>
-                <div style={pieChartStyle}>
-                    <PieChart rawdata={coverageData} />
-                </div>
-                <div style={containerStyle}>
-                    <div style={scoreHeaderStyle}>
-                        <h2 style={{ marginRight: '16px' }}>Test Scores: </h2>
-                        <h2>Average: {averageScore.toFixed(2)}</h2>
-                    </div>
-                    <div style={barChartStyle}>
-                        <Barchart data={barData} />
-                    </div>
-                </div>
+    return (
+        <div>
+            <h1>My Statistics</h1>
+            <div style={{marginBottom: '20px'}}>
+                <MyResponsiveCalendar data={calendarData} />
             </div>
-        );
-
-
-
+            <div style={{marginBottom: '20px'}}>
+                <Container
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <Dropdown
+                        dataArray={dataArray}
+                        label="Options"
+                        onSelectionChange={handleDropdownChange}
+                    />
+                    <h2 style={{ marginTop: '20px' }}>{deckData}</h2>
+                </Container>
+            </div>
+            <div style={{marginBottom: '20px'}}>
+                <PieChart rawdata={coverageData} />
+            </div>
+            <div style={barChartStyle}>
+                <Barchart data={barData} />
+            </div>
+        </div>
+    );
 };
+
 
 export default Statistics;
