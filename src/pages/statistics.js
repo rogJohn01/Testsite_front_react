@@ -7,6 +7,7 @@ import PieChart from "../components/graphs/piechart";
 import Barchart from "../components/graphs/barchart";
 import Dropdown from "../components/graphs/dropdown";
 import { Container } from '@mui/material';
+import GetCardDeck from "../apis/form_api";
 
 
 const formatCalendarData = (apiData) => {
@@ -79,6 +80,8 @@ const Statistics = () => {
     const [coverageData , setCoverageData ] = useState(0)
     const [barData , setBarData ] = useState([]) ;
     const [deckData, setDeckData] = useState([]);
+
+    const decks = GetCardDeck();
 
 
     useEffect(() => {
@@ -154,8 +157,8 @@ const Statistics = () => {
                     }}
                 >
                     <Dropdown
-                        dataArray={dataArray}
-                        label="Options"
+                        dataArray={decks}
+                        label="Select Deck"
                         onSelectionChange={handleDropdownChange}
                     />
                     <h2 style={{ marginTop: '20px' }}>{deckData}</h2>

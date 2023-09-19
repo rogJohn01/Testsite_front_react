@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FormControl, InputLabel, MenuItem, Select, Container } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 const Dropdown = ({ dataArray, label, onSelectionChange }) => {
     const [selectedOption, setSelectedOption] = useState('');
@@ -13,12 +13,14 @@ const Dropdown = ({ dataArray, label, onSelectionChange }) => {
     };
 
     return (
-        <FormControl variant="filled"
-                     sx={{
-                         '.MuiFilledInput-root': {
-                             backgroundColor: 'white', // Change to 'white' if you prefer
-                         },
-                     }}
+        <FormControl
+            variant="filled"
+            sx={{
+                width: '300px',  // Add this line to set the width
+                '.MuiFilledInput-root': {
+                    backgroundColor: 'white',
+                },
+            }}
         >
             <InputLabel id={`${label}-label`}>{label}</InputLabel>
             <Select
@@ -35,8 +37,8 @@ const Dropdown = ({ dataArray, label, onSelectionChange }) => {
                 }}
             >
                 {dataArray.map((item, index) => (
-                    <MenuItem key={index} value={`Option ${item}`}>
-                        Option {item}
+                    <MenuItem key={index} value={item.deck_name}>
+                        {item.deck_name}
                     </MenuItem>
                 ))}
             </Select>
