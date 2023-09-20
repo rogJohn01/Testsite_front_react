@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import {wordContext} from "../../contexts/wordContext";
 
 const Dropdown = ({ dataArray, label, onSelectionChange }) => {
     const [selectedOption, setSelectedOption] = useState('');
+    const { statisticsDeck , SetStatisticsDeck } = useContext(wordContext)
 
     const handleChange = (event) => {
         const value = event.target.value;
         setSelectedOption(value);
+        SetStatisticsDeck(value)
         if (onSelectionChange) {
             onSelectionChange(value);
         }

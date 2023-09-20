@@ -1,5 +1,5 @@
 import MyResponsiveCalendar from '../components/graphs/calendar';
-import React, { useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import MyPieChart from "../components/graphs/piechart";
@@ -8,6 +8,7 @@ import Barchart from "../components/graphs/barchart";
 import Dropdown from "../components/graphs/dropdown";
 import { Container } from '@mui/material';
 import GetCardDeck from "../apis/form_api";
+import {wordContext} from "../contexts/wordContext";
 
 
 const formatCalendarData = (apiData) => {
@@ -32,18 +33,17 @@ const fetchCalendarData = async (setCalendarData) => {
     }
 };
 
-
-const fetchCoverageData = async (setCoverageData) => {
+const fetchCoverageData = async ( setCoverageData) => {
     try {
-        const response = await axios.get('http://localhost:3006/statistics/get_coverage/barron800');
-        const coverageData = response.data
+        const response = await axios.get(`http://localhost:3006/statistics/whole/get_coverage/`);
+        const coverageData = response.data;
         // Convert string to float
         if (isNaN(coverageData)) {
             console.error('Could not convert coverageData to float');
             return;
         }
-        setCoverageData(coverageData)
-        console.log("from fetching: ", coverageData)
+        setCoverageData(coverageData);
+        console.log("from fetching: ", coverageData);
     } catch (error) {
         console.error('Error fetching calendar data:', error);
     }
@@ -52,7 +52,7 @@ const fetchCoverageData = async (setCoverageData) => {
 
 const fetchBarData = async (setBarData) => {
     try {
-        const response = await axios.get('http://localhost:3006/statistics/get_5_recent_scores/barron800');
+        const response = await axios.get('http://localhost:3006/statistics/whole/get_5_recent_scores/');
         const barData = response.data;
 
         console.log("bardata from api: ", barData);
@@ -71,7 +71,6 @@ const fetchBarData = async (setBarData) => {
         console.error('Error fetching calendar data:', error);
     }
 };
-const dataArray = [1, 2, 3, 4, 5]; // This array could be your data source
 
 
 
@@ -83,10 +82,12 @@ const Statistics = () => {
 
     const decks = GetCardDeck();
 
+    const { statisticsDeck , SetStatisticsDeck } = useContext(wordContext)
+
 
     useEffect(() => {
         fetchCalendarData(setCalendarData);
-        fetchCoverageData(setCoverageData);
+        fetchCoverageData( setCoverageData);
         fetchBarData(setBarData);
     }, []);
 
@@ -168,6 +169,8 @@ const Statistics = () => {
                 <PieChart rawdata={coverageData} />
             </div>
             <div style={barChartStyle}>
+                <h2> Average Score:     {averageScore} </h2>
+
                 <Barchart data={barData} />
             </div>
         </div>
