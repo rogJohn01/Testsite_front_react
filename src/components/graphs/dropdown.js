@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import {wordContext} from "../../contexts/wordContext";
 
-const Dropdown = ({ dataArray, label, onSelectionChange }) => {
+const Dropdown = ({ dataArray, label, onSelectionChange, style }) => {
     const [selectedOption, setSelectedOption] = useState('');
     const { statisticsDeck , SetStatisticsDeck } = useContext(wordContext)
 
@@ -19,9 +19,15 @@ const Dropdown = ({ dataArray, label, onSelectionChange }) => {
         <FormControl
             variant="filled"
             sx={{
-                width: '300px',  // Add this line to set the width
+                width: '250px',
                 '.MuiFilledInput-root': {
-                    backgroundColor: 'white',
+                    backgroundColor: 'transparent',
+                },
+                '.MuiInput-underline:after': {
+                    borderBottom: 'none',
+                },
+                '.MuiInput-underline:before': {
+                    borderBottom: 'none',
                 },
             }}
         >

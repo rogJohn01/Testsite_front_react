@@ -6,9 +6,9 @@ import MyPieChart from "../components/graphs/piechart";
 import PieChart from "../components/graphs/piechart";
 import Barchart from "../components/graphs/barchart";
 import Dropdown from "../components/graphs/dropdown";
-import { Container } from '@mui/material';
 import GetCardDeck from "../apis/form_api";
 import {wordContext} from "../contexts/wordContext";
+import { Button, Container } from '@mui/material';
 
 
 const formatCalendarData = (apiData) => {
@@ -79,6 +79,8 @@ const Statistics = () => {
     const [coverageData , setCoverageData ] = useState(0)
     const [barData , setBarData ] = useState([]) ;
     const [deckData, setDeckData] = useState([]);
+    const [isDropdownClicked, setIsDropdownClicked] = useState(false);
+
 
     const decks = GetCardDeck();
 
@@ -93,6 +95,8 @@ const Statistics = () => {
 
     const handleDropdownChange = (value) => {
         setDeckData(value);
+        setIsDropdownClicked(true); // set it to true when dropdown is clicked
+
     };
 
 
@@ -104,7 +108,7 @@ const Statistics = () => {
 
     const averageScore = barData.reduce((acc, curr) => acc + parseFloat(curr.score), 0) / barData.length;
 
-
+    // css
     const calendarStyle = {
         height: 1000,
         width: 800,
@@ -142,6 +146,13 @@ const Statistics = () => {
         marginTop: '60px'
     };
 
+    const buttonAndDropdownStyle = {
+        width: '150px',
+        height: '40px',
+        backgroundColor: 'red'  // Temporarily add this line
+
+    };
+
     return (
         <div>
             <h1>My Statistics</h1>
@@ -152,18 +163,46 @@ const Statistics = () => {
                 <Container
                     sx={{
                         display: 'flex',
-                        flexDirection: 'column',
+                        flexDirection: 'row',  // Changed from column to row
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}
                 >
+                    <Button
+                        variant="contained"
+                        style={{
+                            width: '250px',
+                            height: '50px',
+                            marginLeft: '20px',
+                            backgroundColor: isDropdownClicked ?   'transparent': 'rgba(128, 128, 128, 0.3)',  // Conditional background color using RGBA
+                            color: 'black'
+                    }}
+                        onClick={() => setIsDropdownClicked(false)} // Reset on button click
+                    >
+                        Whole - deck
+                    </Button>
+
                     <Dropdown
                         dataArray={decks}
                         label="Select Deck"
                         onSelectionChange={handleDropdownChange}
+                        style={{
+                            width: '250px',
+                            height: '50px',
+
+                            border: '1px solid transparent',
+                            borderRadius: '4px' ,
+                            boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',  // Add this line for box shadow
+
+
+                        }}  // Add the common styles here
+
                     />
-                    <h2 style={{ marginTop: '20px' }}>{deckData}</h2>
                 </Container>
+                <h2 style={{ marginTop: '20px' }}>
+                    {isDropdownClicked ? deckData: "whole deck"}
+                </h2>
+
             </div>
             <div style={{marginBottom: '20px'}}>
                 <PieChart rawdata={coverageData} />
