@@ -22,45 +22,41 @@ const fetchDeckCoverageData = async ( deck , setDeckCoverageData) => {
         console.error('Error fetching calendar data:', error);
     }
 };
-
-
-const fetchDeckBarData = async (deck , setDeckBarData) => {
+const fetchDeckBarData = async (deck, setDeckBarData) => {
     try {
         const response = await axios.get(`http://localhost:3006/statistics/get_5_recent_scores/${deck}`);
         const barData = response.data;
 
-        console.log("bardata from api: ", barData);
-
-        // Check if barData is an array or object
-        if (Array.isArray(barData) || typeof barData === 'object') {
-            console.log("Received complex data type.");
+        if (Array.isArray(barData)) {
+            setDeckBarData(barData);
+        } else {
+            console.error("Received data is not an array");
         }
-
-
-        setDeckBarData(barData);
-
-        // Debugging the state update (This will not reflect the update immediately)
-        console.log("from fetching bardata: ", barData);
     } catch (error) {
-        console.error('Error fetching calendar data:', error);
+        console.error('Error fetching data:', error);
     }
 };
 
 
 
-
-
-const Deck_statistics = () => {
+const Deck_statistics = ({ deck }) => {  // 'deck' passed as a prop here
 
     const [deckCoverageData , setDeckCoverageData ] = useState(0)
     const [deckBarData , setDeckBarData ] = useState([]) ;
 
+    useEffect(() => {
+        if (deck) {
+            fetchDeckCoverageData(deck, setDeckCoverageData);
+            fetchDeckBarData(deck, setDeckBarData);
+        }
+    }, [deck]);  // Dependency array includes 'deck'
 
     // run functions
 
    // fetchDeckCoverageData()
    // fetchDeckBarData()
 
+    const averageScore = deckBarData.reduce((acc, curr) => acc + parseFloat(curr.score), 0) / deckBarData.length;
 
     // css
 
@@ -80,13 +76,15 @@ const Deck_statistics = () => {
 
 
             <div style={{marginBottom: '20px'}}>
-                <PieChart rawdata={coverageData} />
+                <PieChart rawdata={deckCoverageData} />
             </div>
             <div style={barChartStyle}>
                 <h2> Average Score:     {averageScore} </h2>
 
-                <Barchart data={barData} />
+                <Barchart data={deckBarData} />
             </div>
         </div>
     );
 };
+
+export  default  Deck_statistics

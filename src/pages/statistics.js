@@ -9,7 +9,7 @@ import Dropdown from "../components/graphs/dropdown";
 import GetCardDeck from "../apis/form_api";
 import {wordContext} from "../contexts/wordContext";
 import { Button, Container } from '@mui/material';
-
+import Deck_statistics from "./deck_statistics"
 
 const formatCalendarData = (apiData) => {
     return apiData.map(item => {
@@ -24,7 +24,7 @@ const formatCalendarData = (apiData) => {
 
 const fetchCalendarData = async (setCalendarData) => {
     try {
-        const response = await axios.get('http://localhost:3006/statistics/get_calendar');
+        const response = await axios.get('http://localhost:3006/statistics/whole/get_calendar');
         const formattedData = formatCalendarData(response.data);
         console.log("Formatted data:", formattedData); // Debug line
         setCalendarData(formattedData);
@@ -80,6 +80,7 @@ const Statistics = () => {
     const [barData , setBarData ] = useState([]) ;
     const [deckData, setDeckData] = useState([]);
     const [isDropdownClicked, setIsDropdownClicked] = useState(false);
+    const [showMainStatistics, setShowMainStatistics] = useState(true);
 
 
     const decks = GetCardDeck();
@@ -99,7 +100,15 @@ const Statistics = () => {
 
     };
 
+    const handleCombinedButtonActions = () => {
+        setIsDropdownClicked(false);
+        setShowMainStatistics(true);
+    };
 
+    const handleCombinedDropdownChange = (value) => {
+        handleDropdownChange(value);
+        setShowMainStatistics(false );
+    };
 
     console.log("Current calendarData state:", calendarData); // Debug line
     console.log("Current coverageData state:", coverageData);  // Debug line
@@ -153,6 +162,11 @@ const Statistics = () => {
 
     };
 
+    const Main_statistics = {
+
+    }
+
+
     return (
         <div>
             <h1>My Statistics</h1>
@@ -163,7 +177,7 @@ const Statistics = () => {
                 <Container
                     sx={{
                         display: 'flex',
-                        flexDirection: 'row',  // Changed from column to row
+                        flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}
@@ -174,10 +188,10 @@ const Statistics = () => {
                             width: '250px',
                             height: '50px',
                             marginLeft: '20px',
-                            backgroundColor: isDropdownClicked ?   'transparent': 'rgba(128, 128, 128, 0.3)',  // Conditional background color using RGBA
+                            backgroundColor: isDropdownClicked ? 'transparent' : 'rgba(128, 128, 128, 0.3)',
                             color: 'black'
-                    }}
-                        onClick={() => setIsDropdownClicked(false)} // Reset on button click
+                        }}
+                        onClick={handleCombinedButtonActions}
                     >
                         Whole - deck
                     </Button>
@@ -185,18 +199,14 @@ const Statistics = () => {
                     <Dropdown
                         dataArray={decks}
                         label="Select Deck"
-                        onSelectionChange={handleDropdownChange}
+                        onSelectionChange={handleCombinedDropdownChange}
                         style={{
                             width: '250px',
                             height: '50px',
-
                             border: '1px solid transparent',
-                            borderRadius: '4px' ,
-                            boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',  // Add this line for box shadow
-
-
-                        }}  // Add the common styles here
-
+                            borderRadius: '4px',
+                            boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'
+                        }}
                     />
                 </Container>
                 <h2 style={{ marginTop: '20px' }}>
@@ -204,14 +214,21 @@ const Statistics = () => {
                 </h2>
 
             </div>
-            <div style={{marginBottom: '20px'}}>
-                <PieChart rawdata={coverageData} />
-            </div>
-            <div style={barChartStyle}>
-                <h2> Average Score:     {averageScore} </h2>
+            { showMainStatistics ? (
+                <div className={Main_statistics}>
+                    <div style={{marginBottom: '20px'}}>
+                        <PieChart rawdata={coverageData} />
+                    </div>
+                    <div style={barChartStyle}>
+                        <h2> Average Score: {averageScore} </h2>
+                        <Barchart data={barData} />
+                    </div>
+                </div>
+            ) : (
+                <Deck_statistics deck={deckData} /> // 'deckData' is passed as 'deck' prop here
+            )}
 
-                <Barchart data={barData} />
-            </div>
+
         </div>
     );
 };
