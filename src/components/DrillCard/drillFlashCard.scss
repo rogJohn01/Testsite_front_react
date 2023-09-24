@@ -61,6 +61,13 @@ $button-text-color: white;
 		font-size: 1.5rem ;
 		padding: 7rem;
 	}
+	.word_content {
+		max-height: 500px; // You can set this to whatever you prefer
+
+		overflow-y: auto; // Enable vertical scroll
+		width: 120%; // Setting width to 80% of the parent container
+
+	}
 
 	.button-container {
 		display: none;

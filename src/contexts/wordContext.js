@@ -20,6 +20,7 @@ const WordContextProvider = ({ children }) => {
     const [drillContents, setDrillContents] = useState([]);
     const [drillDeckData, setDrillDeckData] = useState('');
     const [drillYesCount, setDrillYesCount] = useState(0);
+    const [drillIndex , setDrillIndex] = useState(0) ;
 
     // statistics-specific states
     const [ statisticsDeck , SetStatisticsDeck ] = useState('barron800')
@@ -40,6 +41,7 @@ const WordContextProvider = ({ children }) => {
             drillContents, setDrillContents,
             drillDeckData, setDrillDeckData,
             drillYesCount, setDrillYesCount,
+            drillIndex , setDrillIndex ,
             // statistics-specific states
             statisticsDeck , SetStatisticsDeck
         }}>

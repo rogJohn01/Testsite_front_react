@@ -9,7 +9,7 @@ const DrillCard = () => {
     const [showButton, setShowButton] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [noCount , setNoCount ] = useState(1) ; 
-  const [drillIndex , setDrillIndex] = useState(0) ;
+  const [drillIndex , setDrillIndex] = useContext(wordContext) ;
 
 
     const {drillContents , setDrillContents}= useContext(wordContext) ;
@@ -39,7 +39,15 @@ const DrillCard = () => {
         console.log('Drill Contents after API call:', drillContents);
     }, [drillContents]);
 
-  const sendDrillWordData = ( correctState) => {
+    console.log("DrillCard is rendering");  // Debug line to check if the component renders
+
+    useEffect(() => {
+        console.log("useEffect is running");  // Debug line to check if useEffect runs
+        console.log("DrillYesCount in DrillCard: ", drillYesCount);  // Original debug line
+    }, [drillYesCount]);
+
+
+    const sendDrillWordData = ( correctState) => {
 
       let wordData = {
 
@@ -109,10 +117,10 @@ const DrillCard = () => {
     console.log("isActive: " , isActive)
     moveIndex() ; 
     setIsActive(!isActive ); 
-    const updatedYesCount = drillYesCount+1
-    setDrillYesCount(updatedYesCount)
+    //const updatedYesCount = drillYesCount+1
+    setDrillYesCount(drillYesCount+1)
     sendDrillWordData(true) ;
-    console.log("yesCnt: " , drillYesCount)
+    console.log("yesCntDrill : " , drillYesCount)
   }
   
   const noButton = () => {
@@ -135,9 +143,8 @@ const DrillCard = () => {
 
             const wordFront = drillContents[index].word_front || "";
             const wordBack = drillContents[index].word_back || "";
-            const wordBackExample = wordBack.split('Examples:')[0] || "";
-
-            backContent = `${wordFront}<br><br> <hr> <br>${wordBackExample.slice(0, 300)}`;
+            const wordBackExample = wordBack ;
+            backContent = `${wordFront}<br><br> <hr> <br>${wordBackExample.slice(0, 600)}`;
         }
     } catch (error) {
         console.error('Error while setting frontContent and backContent:', error);
@@ -158,7 +165,7 @@ const DrillCard = () => {
         <div className="quiz-header">
           <div className="word_form">
             {drillContents.length > 0 && (
-              <div>
+                <div className="word_content" >
                   {isActive ?
                       <div dangerouslySetInnerHTML={{ __html: backContent }} />
                       : frontContent}

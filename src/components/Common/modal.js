@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import "./modal.scss"
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
-
+import {fetchTheTestWrong} from "./modalUtilie";
 
 const ModalWindow =() =>{
     const history = useHistory();
@@ -17,23 +17,22 @@ const ModalWindow =() =>{
     const {readyDrill , setReadyDrill} = useContext(wordContext)
     const {drillContents , setDrillContents}= useContext(wordContext) ;
     const {testIndex , setTestIndex} = useContext(wordContext) ;
+    const {drillIndex , setDrillIndex} = useContext(wordContext)
 
 
     var res = String(yesCount)+" / "+String(contents.length)
     var res_percentage = (yesCount/contents.length*100).toFixed(0)+"%"
 
-    const fetchTheWrong=async (testIndex) => {
 
-        const recent_index = testIndex -1
-        const url = `http://localhost:3006/drill/test_wrongs/${recent_index}`;
-        console.log(url)
-        const response = await axios.get(url);
-        const {data} = response;
-        console.log("drillcontents: ", drillContents)
-
-        setDrillContents(data);
-
-
+    const getDrillIndex = async () => {
+        try {
+            const url ='http://localhost:3006/drill/drill_index';
+            const response = await axios.get(url) ;
+            const data = response.data[0].idx ;
+            setDrillIndex(data+1) ;
+        } catch (error) {
+            console.error("error fetching testIndex: ", error ) ;
+        }
     }
 
 
@@ -48,7 +47,8 @@ const ModalWindow =() =>{
 
     const TestDrillButton=()=>{
         console.log("take the drill test")
-        fetchTheWrong(testIndex)
+        fetchTheTestWrong(testIndex, setDrillContents, drillContents); // <-- Pass required arguments
+        getDrillIndex()
         setReadyDrill(true) ;
         history.push('/TakeDrill');
         setTestFinished(false)

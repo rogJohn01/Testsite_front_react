@@ -3,6 +3,7 @@ import { useState, useEffect , useContext } from 'react';
 import { wordContext } from '../../contexts/wordContext';
 import Button from '@mui/material/Button';
 import "./modal.scss"
+import {fetchTheDrillWrong} from "./modalUtilie";
 
 
 const DrillModalWindow =() =>{
@@ -15,6 +16,7 @@ const DrillModalWindow =() =>{
 
     const {readyDrill , setReadyDrill} = useContext(wordContext)
     const {drillFinished , setDrillFinished } = useContext(wordContext)
+    const {drillIndex , setDrillIndex} = useContext(wordContext)
 
 
     var res = String(drillYesCount)+" / "+String(drillContents.length)
@@ -38,10 +40,18 @@ const DrillModalWindow =() =>{
 
         // redirect to the modal!
         console.log("take different drill")
+        fetchTheDrillWrong(drillIndex, setDrillContents, drillContents); // <-- Pass required arguments
+
         setTestFinished(false)
         setReady(false)
         setDrillYesCount(0) ;
+        setDrillFinished(false)
 
+
+        setReadyDrill(true) ;
+
+
+       // history.push('/TakeDrill');
 
     }
 
@@ -62,7 +72,7 @@ const DrillModalWindow =() =>{
                     Take new Drill
                 </Button>
                 <Button variant="contained" color="primary" className='modal_button' onClick={studyTheWrongsButton}>
-                    Take Different Drill
+                     Drill the wrong ones
                 </Button>
 
             </div>
