@@ -28,7 +28,7 @@ const columns: GridColDef[] = [
   },
 ];
 
-export default function ResultTable() {
+export default function RecordTest() {
   const [content, setContent] = useState([]);
   const fetchTableResult = async () => {
     try {

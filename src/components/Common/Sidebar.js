@@ -27,6 +27,7 @@ import { ImStatsBars } from 'react-icons/im';
 import { DiCodeigniter } from "react-icons/di";
 
 import "./Sidebar.scss"
+import RecordDrill from "../../pages/RecordDrill";
 
 
 const Sidebar = ({
@@ -90,10 +91,19 @@ const Sidebar = ({
           </MenuItem>
 
 
-          <MenuItem icon={<FaTable />}>
-                Records <Link to="/ResultTable" />
-          </MenuItem >
 
+          <SubMenu
+              title={'Records'}
+              icon={<FaTable />}
+          >
+            <MenuItem>
+              Test-records <Link to="/ResultTable" />
+            </MenuItem>
+            <MenuItem>
+              Drill-records <Link to="/Drill_table" />
+            </MenuItem>
+
+          </SubMenu>
 
           <MenuItem icon={<ImStatsBars />}>
             Statistics <Link to="/statistics" />
