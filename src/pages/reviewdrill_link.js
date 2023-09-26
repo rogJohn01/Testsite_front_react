@@ -6,21 +6,21 @@ import axios from 'axios';
 
 
 const columns = [
-    { field: 'test_id', headerName: 'test-id', minWidth: 200 , },
+    { field: 'drill_id', headerName: 'test-id', minWidth: 200 , },
     { field: 'word_front', headerName: 'word',  minWidth: 200 , },
     { field: 'iscorrect', headerName: 'status',  minWidth: 200 ,
         valueFormatter: (params) => params.value === 1 ? 'O' : 'X', },
     { field: 'testdate', headerName: 'word-test-date', minWidth: 180 , }
 ]
 
-export default function Review_table({ match }){
+export default function Review_Drilltable({ match }){
     const [reviewContent , setReviewContent ] = useState([])
 
-    var testId = parseInt(match.params.test_id)
+    var drillId = parseInt(match.params.drill_id)
 
-    const fetchReviewTable = async (testId) => {
+    const fetchReviewTable = async (drillId) => {
         try {
-            const url = `http://localhost:3006/record/test_reviews/${testId}`;
+            const url = `http://localhost:3006/record/drill_reviews/${drillId}`;
             const response = await axios.get(url) ;
 
             const data = response.data.map((item, index) => ({
@@ -29,13 +29,13 @@ export default function Review_table({ match }){
             }));
             setReviewContent(data)
         }catch(error){
-            console.error("Error fetching review table" , error)
+            console.error("Error fetching drill review table" , error)
         }
     }
 
     useEffect(() => {
-        fetchReviewTable(testId);
-    } , [testId])
+        fetchReviewTable(drillId);
+    } , [drillId])
 
     return (
         <div style={{ height: 'auto', width: '100%' }}>

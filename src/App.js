@@ -11,6 +11,7 @@ import Review_table from './pages/review_link';
 import StartDrill from './pages/startDrill';
 import Statistics from "./pages/statistics";
 import RecordDrill from "./pages/RecordDrill";
+import Review_Drilltable from "./pages/reviewdrill_link";
 
 
 
@@ -64,9 +65,10 @@ function App() {
             <div style={contentStyle}>
 
     <Switch>
-          <Route path='/reviewTable/:test_id'  component={Review_table} /> 
+          <Route path='/reviewTable/:test_id'  component={Review_table} />
+          <Route path='/reviewDrillTable/:drill_id'  component={Review_Drilltable} />
 
-          <Route path="/ResultTable" component={ResultTable} />
+        <Route path="/ResultTable" component={ResultTable} />
           <Route path="/Drill_table" component={RecordDrill} />
           <Route path="/statistics" component={Statistics} />
           <Route path="/Take_test" component={Take_test} />

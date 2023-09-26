@@ -21,7 +21,7 @@ const columns: GridColDef[] = [
         headerName: 'View Detail',
         width: 150,
         renderCell: (params) => (
-            <a href={`http://localhost:3006/record/drill_reviews/${params.id}`} target="_blank" rel="noopener noreferrer">
+            <a href={`http://localhost:3000/reviewDrillTable/${params.id}`} target="_blank" rel="noopener noreferrer">
                 Review <FaRegLaughWink />
             </a>
         ),
