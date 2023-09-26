@@ -8,9 +8,9 @@ const DrillCard = () => {
     const [index, setIndex] = useState(0);
     const [showButton, setShowButton] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const [noCount , setNoCount ] = useState(1) ; 
-  const [drillIndex , setDrillIndex] = useContext(wordContext) ;
+  const [noCount , setNoCount ] = useState(1) ;
 
+    const {drillIndex , setDrillIndex} = useContext(wordContext) ;
 
     const {drillContents , setDrillContents}= useContext(wordContext) ;
     const {drillDeckData , setDrillDeckData }= useContext(wordContext) ;
