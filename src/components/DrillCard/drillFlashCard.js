@@ -10,8 +10,9 @@ const DrillCard = () => {
   const [isActive, setIsActive] = useState(false);
   const [noCount , setNoCount ] = useState(1) ;
 
-    const {drillIndex , setDrillIndex} = useContext(wordContext) ;
 
+
+  const {drillIndex , setDrillIndex} = useContext(wordContext) ;
     const {drillContents , setDrillContents}= useContext(wordContext) ;
     const {drillDeckData , setDrillDeckData }= useContext(wordContext) ;
     const {drillYesCount , setDrillYesCount} = useContext(wordContext) ;
@@ -113,25 +114,24 @@ const DrillCard = () => {
   }
 
   const yesButton = () => {
-    
-    console.log("isActive: " , isActive)
-    moveIndex() ; 
-    setIsActive(!isActive ); 
-    //const updatedYesCount = drillYesCount+1
-    setDrillYesCount(drillYesCount+1)
+      setDrillYesCount(drillYesCount+1)
+
+    setIsActive(!isActive );
     sendDrillWordData(true) ;
     console.log("yesCntDrill : " , drillYesCount)
+      moveIndex() ;
+
   }
   
   const noButton = () => {
-    console.log("isActive: " , isActive)
-    moveIndex() ; 
-    setIsActive(!isActive); 
 
-    setNoCount(noCount +1)
+      setNoCount(noCount +1)
+      console.log("isActive: " , isActive)
+    setIsActive(!isActive);
       sendDrillWordData(false) ;
-
     console.log("noCnt: " , noCount)
+      moveIndex() ;
+
 
   }
     let frontContent = "";

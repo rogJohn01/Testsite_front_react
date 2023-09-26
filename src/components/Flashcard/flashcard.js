@@ -147,7 +147,7 @@ const Flash7 = () => {
   // ...
   var frontContent = contents[index] ? contents[index].word_front : "";
   var backContent = contents[index]
-    ? contents[index].word_front+"<br><br> <hr> <br>"+contents[index].word_back.split('Examples:')[0]
+    ? contents[index].word_front+"<br><br> <hr> <br>"+contents[index].word_back
     : "";
   // ...
 

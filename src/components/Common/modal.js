@@ -14,10 +14,16 @@ const ModalWindow =() =>{
     const {yesCount , setYesCount } = useContext(wordContext)
     const {testFinished , setTestFinished} = useContext(wordContext)
     const {ready , setReady} = useContext(wordContext)
+    const { deckData , setDeckdata} = useContext(wordContext) ;
+
+
+
+
     const {readyDrill , setReadyDrill} = useContext(wordContext)
     const {drillContents , setDrillContents}= useContext(wordContext) ;
     const {testIndex , setTestIndex} = useContext(wordContext) ;
     const {drillIndex , setDrillIndex} = useContext(wordContext)
+    const {drillDeckData , setDrillDeckData }= useContext(wordContext) ;
 
 
     var res = String(yesCount)+" / "+String(contents.length)
@@ -49,6 +55,7 @@ const ModalWindow =() =>{
         console.log("take the drill test")
         fetchTheTestWrong(testIndex, setDrillContents, drillContents); // <-- Pass required arguments
         getDrillIndex()
+        setDrillDeckData(deckData)
         setReadyDrill(true) ;
         history.push('/TakeDrill');
         setTestFinished(false)

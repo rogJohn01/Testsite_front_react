@@ -77,23 +77,28 @@ $button-text-color: white;
 		}
 
 		.button-container {
-			display: none;
-	
-			 
+			display: flex;
+			justify-content: center;
+			/* Add other styles for the container if necessary */
+			width: 600px;  /* Increase this value as needed */
+			height: 60px;
+			margin-top: 20px;
+
+		}
+
 		.button {
-			display: inline;
+			display: inline-block;
 			background-color: $button-bg-color;
 			color: $button-text-color;
 			border: none;
 			border-radius: 7px;
 			font-size: 16px;
-			cursor: pointer ;
-			width: 100%;
+			cursor: pointer;
 			padding: 10px 20px;
-			margin-top: 10px;
+			margin-right: 30px;  /* Add space to the right of each button */
+			margin-left: 30px;
 		}
-		   
-		}
+
 		.none-display {
 			display: none;
 		  }
