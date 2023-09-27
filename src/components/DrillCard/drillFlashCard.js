@@ -104,7 +104,7 @@ const DrillCard = () => {
     }else {
         setDrillFinished(true) ;
 
-        setDrillIndex(0);
+        setIndex(0);
         //setDrillYesCount(0) ;
         setNoCount(0) ;
 

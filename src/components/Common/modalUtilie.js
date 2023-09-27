@@ -11,7 +11,7 @@ export const fetchTheTestWrong = async (testIndex, setDrillContents, drillConten
 };
 
 export const fetchTheDrillWrong = async (drillIndex, setDrillContents, drillContents) => {
-    const recent_index = drillIndex - 1;
+    const recent_index = drillIndex ;
     const url = `http://localhost:3006/drill/drill_wrongs/${recent_index}`;
     console.log(url);
     const response = await axios.get(url);
