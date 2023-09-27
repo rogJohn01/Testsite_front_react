@@ -105,7 +105,7 @@ const DrillCard = () => {
         setDrillFinished(true) ;
 
         setDrillIndex(0);
-        setDrillYesCount(0) ;
+        //setDrillYesCount(0) ;
         setNoCount(0) ;
 
         sendDrillResult() ;
@@ -144,7 +144,7 @@ const DrillCard = () => {
             const wordFront = drillContents[index].word_front || "";
             const wordBack = drillContents[index].word_back || "";
             const wordBackExample = wordBack ;
-            backContent = `${wordFront}<br><br> <hr> <br>${wordBackExample.slice(0, 600)}`;
+            backContent = `${wordFront}<br><br> <hr> <br>${wordBackExample.slice(0, 5000)}`;
         }
     } catch (error) {
         console.error('Error while setting frontContent and backContent:', error);
