@@ -32,10 +32,6 @@ const DrillModalWindow =() =>{
         setDrillYesCount(0) ;
     }
 
-    const TestDrillButton=()=>{
-        console.log("take the drill test")
-
-    }
     const studyTheWrongsButton=()=>{
 
         // redirect to the modal!

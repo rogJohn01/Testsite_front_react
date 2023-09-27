@@ -7,17 +7,19 @@ import Barchart from "../components/graphs/barchart";
 
 
 
-const fetchDeckCoverageData = async ( deck , setDeckCoverageData) => {
+const fetchDeckCoverageData = async ( deck ,setDeckCoverageData , setDeckCoverageRatioData) => {
     try {
         const response = await axios.get(`http://localhost:3006/statistics/get_coverage/${deck}`);
-        const coverageData = response.data;
+        const Data = response.data;
         // Convert string to float
-        if (isNaN(coverageData)) {
-            console.error('Could not convert coverageData to float');
-            return;
-        }
-        setDeckCoverageData(coverageData);
-        console.log("from fetching: ", coverageData);
+
+        const coveredData = parseFloat(Data[0].count1.toFixed(2)) ;
+        const wholeData = Data[0].count2
+
+        const coverageRatioData = parseFloat((coveredData/wholeData).toFixed(2) );
+        setDeckCoverageData([coveredData , wholeData])
+        setDeckCoverageRatioData(coverageRatioData);
+        console.log("from fetching: ", coverageRatioData);
     } catch (error) {
         console.error('Error fetching calendar data:', error);
     }
@@ -41,12 +43,13 @@ const fetchDeckBarData = async (deck, setDeckBarData) => {
 
 const Deck_statistics = ({ deck }) => {  // 'deck' passed as a prop here
 
-    const [deckCoverageData , setDeckCoverageData ] = useState(0)
+    const [deckCoverageRatioData , setDeckCoverageRatioData ] = useState(0)
+    const [ deckCoverageData , setDeckCoverageData ] = useState([])
     const [deckBarData , setDeckBarData ] = useState([]) ;
 
     useEffect(() => {
         if (deck) {
-            fetchDeckCoverageData(deck, setDeckCoverageData);
+            fetchDeckCoverageData(deck, setDeckCoverageData ,setDeckCoverageRatioData );
             fetchDeckBarData(deck, setDeckBarData);
         }
     }, [deck]);  // Dependency array includes 'deck'
@@ -67,16 +70,26 @@ const Deck_statistics = ({ deck }) => {  // 'deck' passed as a prop here
         marginTop: '60px'
     };
 
-
+    const coverageDataStyle = {
+        fontSize: '20px' ,
+        color:'skyblue'
+    }
 
 
     return (
         <div>
             <h1> deck  Statistics</h1>
-
+            <div>
+                <h3 style={coverageDataStyle}>
+                    covered cards: {deckCoverageData[0]}
+                </h3>
+                <h3 style={coverageDataStyle}>
+                    whole cards: {deckCoverageData[1]}
+                </h3>
+            </div>
 
             <div style={{marginBottom: '20px'}}>
-                <PieChart rawdata={deckCoverageData} />
+                <PieChart rawdata={deckCoverageRatioData} />
             </div>
             <div style={barChartStyle}>
                 <h2> Average Score:     {averageScore} </h2>
