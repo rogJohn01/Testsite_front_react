@@ -82,9 +82,13 @@ const ModalWindow =() =>{
                 <Button variant="contained" color="primary" className='modal_button' onClick={newTestButton}>
                     Take new Test
                 </Button>
-                <Button variant="contained" color="primary" className='modal_button' onClick={TestDrillButton}>
-                    Take Drill Test
-                </Button>
+                {yesCount !== contents.length && (
+                    <Button variant="contained" color="primary" className='modal_button' onClick={TestDrillButton}>
+                        Take Drill Test
+                    </Button>
+
+                )}
+
 
             </div>
 

@@ -67,9 +67,12 @@ const DrillModalWindow =() =>{
                 <Button variant="contained" color="primary" className='modal_button' onClick={newDrillButton}>
                     Take new Drill
                 </Button>
-                <Button variant="contained" color="primary" className='modal_button' onClick={studyTheWrongsButton}>
-                     Drill the wrong ones
-                </Button>
+
+                {drillYesCount !== drillContents.length && (
+                    <Button variant="contained" color="primary" className='modal_button' onClick={studyTheWrongsButton}>
+                        Drill the wrong ones
+                    </Button>
+                )}
 
             </div>
 
