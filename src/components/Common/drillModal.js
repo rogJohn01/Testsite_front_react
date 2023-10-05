@@ -47,7 +47,6 @@ const DrillModalWindow =() =>{
         setReadyDrill(true) ;
 
 
-       // history.push('/TakeDrill');
 
     }
 
