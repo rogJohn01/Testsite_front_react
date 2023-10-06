@@ -52,7 +52,7 @@ export default function RecordDrill() {
                 columns={columns}
                 pageSize={10}
                 rowsPerPageOptions={[10, 25, 100]}
-                getRowId={(row) => row.drill_id}  // Add this line
+                getRowId={(row) => row.drill_id}
                 sortModel={[
                     {
                         field: 'drill_id',
