@@ -1,9 +1,9 @@
-import WordViewTable from "../components/word_view/wordViewTable";
+import WordViewTable2 from "../components/word_view/wordViewDatagrid";
 
 
 export default function WordResultTable() {
 
     return (
-        <WordViewTable numRows={30} />
+        <WordViewTable2/>
     )
 }
