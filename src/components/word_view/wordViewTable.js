@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css"; // Import the CSS file
+import "./wordViewTable.css"; // Import the CSS file
 
 const generateSampleData = (numRows) => {
     const sampleData = [];

@@ -12,6 +12,7 @@ import StartDrill from './pages/startDrill';
 import Statistics from "./pages/statistics";
 import RecordDrill from "./pages/RecordDrill";
 import Review_Drilltable from "./pages/reviewdrill_link";
+import WordResultTable from "./pages/wordResultTable";
 
 
 
@@ -73,7 +74,9 @@ function App() {
           <Route path="/statistics" component={Statistics} />
           <Route path="/Take_test" component={Take_test} />
           <Route path="/TakeDrill" component={StartDrill} />
-          <Route path='/home' component={Home} /> 
+         <Route path="/WordResultTable" component={WordResultTable} />
+
+           <Route path='/home' component={Home} />
           <Route path='/' component={Home} />
     </Switch>
     </div>
