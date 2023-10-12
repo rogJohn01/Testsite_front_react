@@ -51,7 +51,7 @@ const WordViewTable2 = ({ data }) => {
     console.log("Generated columns:", columns);  // Debugging log
 
     return (
-        <div style={{ height: '100vh', width: 'calc(100% - 300px)', marginLeft: '200px', margin: '20px' }}>
+        <div style={{ height: '100vh', width: 'calc(100% - 300px)', marginLeft: '650px', margin: '20px' }}>
             <DataGrid rows={rows} columns={columns} pageSize={5} />
         </div>
     );
