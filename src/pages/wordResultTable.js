@@ -1,6 +1,7 @@
 import WordViewTable2 from "../components/word_view/wordViewDatagrid";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Paper from '@mui/material/Paper';
 
 export default function WordResultTable() {
 
@@ -23,8 +24,10 @@ export default function WordResultTable() {
 
 
     return (
-        <div style={dataGridStyle}>
+        <Paper sx={{ height: '100%', width: '100%' }}>
+
             <WordViewTable2 data={data} />
-        </div>
+        </Paper>
+
     );
 };
