@@ -16,8 +16,14 @@ export default function WordResultTable() {
             });
     }, []);
 
+    const dataGridStyle = {
+        flex: '1' ,
+        marginLeft: '650px',
+    };
+
+
     return (
-        <div>
+        <div style={dataGridStyle}>
             <WordViewTable2 data={data} />
         </div>
     );
