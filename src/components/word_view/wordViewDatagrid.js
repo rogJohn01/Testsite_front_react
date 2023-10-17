@@ -26,6 +26,7 @@ const WordViewTable2 = ({ data }) => {
 
     const [open, setOpen] = useState(false);
     const [maxWidth, setMaxWidth] = useState('md');
+    const [selectedDeck, setSelectedDeck] = useState("");
 
     //const { deckData , setDeckData} = useContext(wordContext) ;
     const decks = GetCardDeck();
@@ -44,11 +45,18 @@ const WordViewTable2 = ({ data }) => {
         setMaxWidth(event.target.value);
     };
 
+    const handleDeckChange = (event) => {
+        setSelectedDeck(event.target.value);
+    };
+
+
 
     const groupedData = data.reduce((acc, item) => {
         if (!acc[item.word_id]) {
             acc[item.word_id] = {
                 word_front: item.word_front,
+                word_deck: item.word_deck,  // Add the word_deck here
+
                 data: []
             };
         }
@@ -60,11 +68,12 @@ const WordViewTable2 = ({ data }) => {
         id: index,
         word_front: groupedData[wordId].word_front,
         word_id: wordId.toString(),
-        ...groupedData[wordId].data.reduce((acc, { color, date }, i) => {
-            acc[`dot${i + 1}`] = { color, date };
-            return acc;
-        }, {}),
+        word_deck: groupedData[wordId].word_deck,  // Add the word_deck here too
     }));
+
+
+    const filteredRows = selectedDeck ? rows.filter(row => row.word_deck === selectedDeck) : rows;
+
 
     console.log("Generated rows:", rows);  // Debugging log
 
@@ -77,13 +86,24 @@ const WordViewTable2 = ({ data }) => {
             field: `dot${i + 1}`,
             headerName: `Dot ${i + 1}`,
             width: 100,
-            renderCell: (params) => (
-                <Tooltip title={params.value ? params.value.date : ''} arrow>
-                    <div style={{ color: params.value?.color || 'white', fontSize: '50px' }}>
-                        •
-                    </div>
-                </Tooltip>
-            ),
+            renderCell: (params) => {
+                // Retrieve the word_id for this row
+                const wordId = params.row.word_id;
+
+                // Retrieve the color for the current dot using the word_id
+                const colorInfo = groupedData[wordId]?.data[i]?.color || 'white';
+
+                // Retrieve the date for the tooltip
+                const dateInfo = groupedData[wordId]?.data[i]?.date || '';
+
+                return (
+                    <Tooltip title={dateInfo} arrow>
+                        <div style={{ color: colorInfo, fontSize: '50px' }}>
+                            •
+                        </div>
+                    </Tooltip>
+
+            )},
         })),
     ];
 
@@ -91,7 +111,7 @@ const WordViewTable2 = ({ data }) => {
     return (
 
         <div>
-            <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
+            <DataGrid rows={filteredRows} columns={columns} pageSize={5} checkboxSelection />
             <Fab
                 color="primary"
                 aria-label="add"
@@ -106,39 +126,33 @@ const WordViewTable2 = ({ data }) => {
             </Fab>
 
             <Dialog open={open} onClose={handleClose} maxWidth={maxWidth}>
-                <DialogTitle>Select an Option         </DialogTitle>
+                <DialogTitle>Select an Option</DialogTitle>
                 <DialogContent>
                     <div>
-                        <Typography variant="h6">Choose Deck for filtering  </Typography>
+                        <Typography variant="h6">Choose Deck for Filtering</Typography>
                     </div>
                     <div>
                         <FormControl sx={{ mt: 2, minWidth: 120 }}>
-                            <InputLabel htmlFor="max-width">  Decks</InputLabel>
+                            <InputLabel htmlFor="selected-deck">Decks</InputLabel>
                             <Select
                                 autoFocus
-                                value={maxWidth}
-                                onChange={handleMaxWidthChange}
-                                label="maxWidth"
+                                value={selectedDeck}
+                                onChange={handleDeckChange}
+                                label="Decks"
                                 inputProps={{
-                                    name: 'max-width',
-                                    id: 'max-width',
+                                    name: 'selected-deck',
+                                    id: 'selected-deck',
                                 }}
                             >
-
                                 {decks.map((deckObj, index) => (
                                     <MenuItem key={index} value={deckObj.deck_name}>
                                         {deckObj.deck_name}
                                     </MenuItem>
                                 ))}
-
-
-
-
                             </Select>
                         </FormControl>
                     </div>
                 </DialogContent>
-
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
                         Cancel
