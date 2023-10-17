@@ -2,6 +2,9 @@ import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Tooltip from '@mui/material/Tooltip';
 import "./wordViewTable.css"; // Import the CSS file
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+
 
 const WordViewTable2 = ({ data }) => {
     console.log("Received data:", data);  // Debugging log
@@ -52,8 +55,20 @@ const WordViewTable2 = ({ data }) => {
 
     return (
 
-            <DataGrid rows={rows} columns={columns} pageSize={5}           checkboxSelection
-            />
+        <div>
+            <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
+            <Fab
+                color="primary"
+                aria-label="add"
+                style={{
+                    position: 'fixed',
+                    bottom: '60px',
+                    right: '20px'
+                }}
+            >
+                <AddIcon />
+            </Fab>
+        </div>
     );
 };
 
