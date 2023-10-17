@@ -1,13 +1,49 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Tooltip from '@mui/material/Tooltip';
-import "./wordViewTable.css"; // Import the CSS file
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
 
+
+import "./wordViewTable.css";
+import {wordContext} from "../../contexts/wordContext";
+import GetCardDeck from "../../apis/form_api";
 
 const WordViewTable2 = ({ data }) => {
     console.log("Received data:", data);  // Debugging log
+
+
+    const [open, setOpen] = useState(false);
+    const [maxWidth, setMaxWidth] = useState('md');
+
+    //const { deckData , setDeckData} = useContext(wordContext) ;
+    const decks = GetCardDeck();
+
+    //console.log(typeof deckData, deckData);
+
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const handleMaxWidthChange = (event) => {
+        setMaxWidth(event.target.value);
+    };
+
 
     const groupedData = data.reduce((acc, item) => {
         if (!acc[item.word_id]) {
@@ -52,7 +88,6 @@ const WordViewTable2 = ({ data }) => {
     ];
 
     console.log("Generated columns:", columns);  // Debugging log
-
     return (
 
         <div>
@@ -62,12 +97,57 @@ const WordViewTable2 = ({ data }) => {
                 aria-label="add"
                 style={{
                     position: 'fixed',
-                    bottom: '60px',
+                    bottom: '20px',
                     right: '20px'
                 }}
+                onClick={handleClickOpen}
             >
                 <AddIcon />
             </Fab>
+
+            <Dialog open={open} onClose={handleClose} maxWidth={maxWidth}>
+                <DialogTitle>Select an Option         </DialogTitle>
+                <DialogContent>
+                    <div>
+                        <Typography variant="h6">Choose Deck for filtering  </Typography>
+                    </div>
+                    <div>
+                        <FormControl sx={{ mt: 2, minWidth: 120 }}>
+                            <InputLabel htmlFor="max-width">  Decks</InputLabel>
+                            <Select
+                                autoFocus
+                                value={maxWidth}
+                                onChange={handleMaxWidthChange}
+                                label="maxWidth"
+                                inputProps={{
+                                    name: 'max-width',
+                                    id: 'max-width',
+                                }}
+                            >
+
+                                {decks.map((deckObj, index) => (
+                                    <MenuItem key={index} value={deckObj.deck_name}>
+                                        {deckObj.deck_name}
+                                    </MenuItem>
+                                ))}
+
+
+
+
+                            </Select>
+                        </FormControl>
+                    </div>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={handleClose} color="primary">
+                        Confirm
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 };
