@@ -25,6 +25,7 @@ const FormDrill = () => {
 
   const { readyDrill, setReadyDrill, drillContents, setDrillContents ,drillDeckData, setDrillDeckData } = useContext(wordContext);
 
+  const drillOptions =[ "Recent_dot_score" ,"most_red_dots"]
 
 
   // Declare new state variables
@@ -95,6 +96,21 @@ const FormDrill = () => {
             { /* drill options */ }
             <div className='form-control'>
               <label htmlFor="decks">Drill options </label>
+              <select
+                  id="decks"
+                  name="decks"
+                  className='form-input'
+                  value={selectedDeck}
+                  onChange={e => setSelectedDeck(e.target.value)}
+              >
+              >
+                {
+                  // Assume customArray is your array of strings
+                  drillOptions.map((item, index) => {
+                    return <option key={index} value={item}>{item}</option>;
+                  })
+                }
+              </select>
 
             </div>
 

@@ -135,7 +135,7 @@ const WordViewTable2 = ({ data }) => {
                 aria-label="add"
                 style={{
                     position: 'fixed',
-                    bottom: '20px',
+                    bottom: '70px',
                     right: '20px'
                 }}
                 onClick={handleClickOpen}
