@@ -7,7 +7,7 @@ import ResultTable from './pages/RecordTest';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Take_test from './pages/take_test';
 import Home from './pages/home';
-import Review_table from './pages/review_link';
+import Review_table from './pages/reviewtest_link';
 import StartDrill from './pages/startDrill';
 import Statistics from "./pages/statistics";
 import RecordDrill from "./pages/RecordDrill";

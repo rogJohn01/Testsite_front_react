@@ -53,6 +53,7 @@ export default function RecordDrill() {
                 pageSize={10}
                 rowsPerPageOptions={[10, 25, 100]}
                 getRowId={(row) => row.drill_id}  // Add this line
+                checkboxSelection
                 sortModel={[
                     {
                         field: 'drill_id',

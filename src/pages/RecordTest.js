@@ -53,6 +53,8 @@ export default function RecordTest() {
             pageSize={10}
             rowsPerPageOptions={[10, 25, 100]}
             getRowId={(row) => row.test_id}  // Add this line
+            checkboxSelection
+
             sortModel={[
               {
                 field: 'test_id',
