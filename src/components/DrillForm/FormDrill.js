@@ -37,7 +37,7 @@ const FormDrill = () => {
   const fetchDrillContents = async ( drillOption, deck, amount) => {
     if (deck && amount) {
       try {
-        const url = `http://localhost:3006/drill/${drillOption}/${deck}/${amount}`;
+        const url = `${process.env.REACT_APP_API_URL}:3006/drill/${drillOption}/${deck}/${amount}`;
         console.log("the current api url" , url )
         const response = await axios.get(url);
         const { data } = response;
@@ -47,7 +47,7 @@ const FormDrill = () => {
         console.log("drillcontents: " , drillContents)
 
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     } else {
       console.error("deck or amount is undefined");

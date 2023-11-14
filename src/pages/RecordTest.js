@@ -21,8 +21,9 @@ const columns: GridColDef[] = [
     headerName: 'View Detail',
     width: 150,
     renderCell: (params) => (
-        <a href={`http://localhost:3000/ReviewTable/${params.id}`} target="_blank" rel="noopener noreferrer">
-          Review <FaRegLaughWink />
+        <a href={`${process.env.REACT_APP_BASE_URL}/ReviewTable/${params.id}`} target="_blank" rel="noopener noreferrer">
+
+        Review <FaRegLaughWink />
         </a>
     ),
   },
@@ -32,7 +33,7 @@ export default function RecordTest() {
   const [content, setContent] = useState([]);
   const fetchTableResult = async () => {
     try {
-      const url = 'http://localhost:3006/record/result_table';
+      const url = `${process.env.REACT_APP_API_URL}:3006/record/result_table`;
       const response = await axios.get(url);
       const data = response.data;
       setContent(data);

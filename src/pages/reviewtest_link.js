@@ -36,7 +36,7 @@ export default function Review_table({ match }){
 
     const fetchReviewTable = async (testId) => {
         try {
-            const url = `http://localhost:3006/record/test_reviews/${testId}`;
+            const url = `${process.env.REACT_APP_API_URL}:3006/record/test_reviews/${testId}`;
             const response = await axios.get(url) ; 
 
             const data = response.data.map((item, index) => ({
