@@ -13,7 +13,8 @@ import Statistics from "./pages/statistics";
 import RecordDrill from "./pages/RecordDrill";
 import Review_Drilltable from "./pages/reviewdrill_link";
 import WordResultTable from "./pages/wordResultTable";
-
+import SignInSide from "./pages/login/signin";
+import { useLocation } from 'react-router-dom';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
 
   const {ready , setReady} = useContext(wordContext)
 
+    const location = useLocation();
 
   const handleCollapsedChange = () => {
     setCollapsed(!collapsed);
@@ -56,16 +58,25 @@ function App() {
 
   return (
     <div style={layoutStyle}>
-     <Sidebar
-        image={image}
-        collapsed={collapsed}
-        toggled={toggled}
-        handleToggleSidebar={handleToggleSidebar}
-        handleCollapsedChange={handleCollapsedChange}
-      />
-            <div style={contentStyle}>
+        {location.pathname !== '/signin' && (
+            <Sidebar
+                image={image}
+                collapsed={collapsed}
+                toggled={toggled}
+                handleToggleSidebar={handleToggleSidebar}
+                handleCollapsedChange={handleCollapsedChange}
+            />
+        )}
+
+        <div style={contentStyle}>
 
     <Switch>
+
+        //login
+        <Route path='/signin' component={SignInSide} />
+
+
+        // review tables
           <Route path='/reviewTable/:test_id'  component={Review_table} />
           <Route path='/reviewDrillTable/:drill_id'  component={Review_Drilltable} />
 

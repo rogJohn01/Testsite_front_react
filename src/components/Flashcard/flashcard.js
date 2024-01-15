@@ -21,7 +21,7 @@ const Flash7 = () => {
 
   const getTestIndex = async () => {
     try {
-        const url = `${process.env.REACT_APP_API_URL}/testIndex`;
+        const url = `${process.env.REACT_APP_API_URL}:3006/testIndex`;
         const response = await axios.get(url) ;
         const data = response.data[0].idx ;
         setTestIndex(data+1) ;
