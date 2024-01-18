@@ -15,7 +15,7 @@ import Review_Drilltable from "./pages/reviewdrill_link";
 import WordResultTable from "./pages/wordResultTable";
 import SignInSide from "./pages/login/signin";
 import { useLocation } from 'react-router-dom';
-
+import SignUp from "./pages/login/signup";
 
 function App() {
 
@@ -58,7 +58,7 @@ function App() {
 
   return (
     <div style={layoutStyle}>
-        {location.pathname !== '/signin' && (
+        {location.pathname !== '/signin' && location.pathname !== '/signup'&& (
             <Sidebar
                 image={image}
                 collapsed={collapsed}
@@ -74,7 +74,7 @@ function App() {
 
         //login
         <Route path='/signin' component={SignInSide} />
-
+        <Route path='/signup' component={SignUp} />
 
         // review tables
           <Route path='/reviewTable/:test_id'  component={Review_table} />
