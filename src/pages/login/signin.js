@@ -40,7 +40,7 @@ export default function SignInSide() {
         const password = data.get('password');
 
         axios
-            .post('http://localhost:3001/login', { username: email, password: password })
+            .post(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_SERVER_PORT_NUM}/login/signin`, { email: email, password: password })
             .then((response) => {
                 const { token } = response.data;
                 localStorage.setItem('token', token);
