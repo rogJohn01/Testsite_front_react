@@ -1,5 +1,5 @@
 import Sidebar from './components/Common/Sidebar';
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import SetupForm from './components/SetupForm/SetupForm';
 import Flash7 from './components/Flashcard/flashcard';
 import { wordContext } from './contexts/wordContext';
@@ -16,6 +16,8 @@ import WordResultTable from "./pages/wordResultTable";
 import SignInSide from "./pages/login/signin";
 import { useLocation } from 'react-router-dom';
 import SignUp from "./pages/login/signup";
+import Navbar from "./components/Common/navbar";
+import Floatingbuttons from "./components/Common/floatingbuttons";
 
 function App() {
 
@@ -69,6 +71,9 @@ function App() {
         )}
 
         <div style={contentStyle}>
+        <div>
+           <Floatingbuttons/>
+        </div>
 
     <Switch>
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import logo from '../assets/images/home_entrance2.jpg';
+import Navbar from "../components/Common/navbar";
 
 export default function Home() {
     const [windowHeight, setWindowHeight] = useState(window.innerHeight);
@@ -28,8 +29,15 @@ export default function Home() {
     };
 
     return (
-        <div style={imgContainer}>
-            <img src={logo} alt="Logo" style={imgStyle} />
+        <div>
+
+            <div style={imgContainer}>
+
+                <img src={logo} alt="Logo" style={imgStyle} />
+            </div>
+
+
         </div>
+
     );
 }
