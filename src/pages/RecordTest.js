@@ -21,7 +21,7 @@ const columns: GridColDef[] = [
     headerName: 'View Detail',
     width: 150,
     renderCell: (params) => (
-        <a href={`${process.env.REACT_APP_BASE_URL}/ReviewTable/${params.id}`} target="_blank" rel="noopener noreferrer">
+        <a href={`${process.env.REACT_APP_API_URL}:3000/ReviewTable/${params.id}`} target="_blank" rel="noopener noreferrer">
 
         Review <FaRegLaughWink />
         </a>

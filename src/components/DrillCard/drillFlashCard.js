@@ -22,7 +22,7 @@ const DrillCard = () => {
 
   const getDrillIndex = async () => {
     try {
-        const url = `${process.env.REACT_APP_API_URL}/drill/drill_index`;
+        const url = `${process.env.REACT_APP_API_URL}:3006/drill/drill_index`;
         const response = await axios.get(url) ; 
         const data = response.data[0].idx ; 
         setDrillIndex(data+1) ;

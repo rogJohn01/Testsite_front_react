@@ -1,5 +1,5 @@
 import Sidebar from './components/Common/Sidebar';
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import SetupForm from './components/SetupForm/SetupForm';
 import Flash7 from './components/Flashcard/flashcard';
 import { wordContext } from './contexts/wordContext';
@@ -13,8 +13,11 @@ import Statistics from "./pages/statistics";
 import RecordDrill from "./pages/RecordDrill";
 import Review_Drilltable from "./pages/reviewdrill_link";
 import WordResultTable from "./pages/wordResultTable";
-
-
+import SignInSide from "./pages/login/signin";
+import { useLocation } from 'react-router-dom';
+import SignUp from "./pages/login/signup";
+import Navbar from "./components/Common/navbar";
+import Floatingbuttons from "./components/Common/floatingbuttons";
 
 function App() {
 
@@ -24,6 +27,7 @@ function App() {
 
   const {ready , setReady} = useContext(wordContext)
 
+    const location = useLocation();
 
   const handleCollapsedChange = () => {
     setCollapsed(!collapsed);
@@ -56,16 +60,28 @@ function App() {
 
   return (
     <div style={layoutStyle}>
-     <Sidebar
-        image={image}
-        collapsed={collapsed}
-        toggled={toggled}
-        handleToggleSidebar={handleToggleSidebar}
-        handleCollapsedChange={handleCollapsedChange}
-      />
-            <div style={contentStyle}>
+        {location.pathname !== '/signin' && location.pathname !== '/signup'&& (
+            <Sidebar
+                image={image}
+                collapsed={collapsed}
+                toggled={toggled}
+                handleToggleSidebar={handleToggleSidebar}
+                handleCollapsedChange={handleCollapsedChange}
+            />
+        )}
+
+        <div style={contentStyle}>
+        <div>
+           <Floatingbuttons/>
+        </div>
 
     <Switch>
+
+        //login
+        <Route path='/signin' component={SignInSide} />
+        <Route path='/signup' component={SignUp} />
+
+        // review tables
           <Route path='/reviewTable/:test_id'  component={Review_table} />
           <Route path='/reviewDrillTable/:drill_id'  component={Review_Drilltable} />
 
