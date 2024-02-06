@@ -64,12 +64,23 @@ const WordViewTable2 = ({ data }) => {
         return acc;
     }, {});
 
-    const rows = Object.keys(groupedData).map((wordId, index) => ({
-        id: index,
-        word_front: groupedData[wordId].word_front,
-        word_id: wordId.toString(),
-        word_deck: groupedData[wordId].word_deck,  // Add the word_deck here too
-    }));
+    const rows = Object.keys(groupedData).map((wordId, index) => {
+        // Extract the last 5 data points for each word.
+        const lastFiveData = groupedData[wordId].data.slice(-5);
+
+        // Count the red dots in the last 5 data points.
+        const redDotCount = lastFiveData.reduce((count, dot) => {
+            return count + (dot.color === 'red' ? 1 : 0);
+        }, 0);
+
+        return {
+            id: index,
+            word_front: groupedData[wordId].word_front,
+            word_id: wordId.toString(),
+            word_deck: groupedData[wordId].word_deck,
+            redDotCount: redDotCount,  // Include the red dot count here
+        };
+    });
 
 
     const filteredRows = selectedDeck ? rows.filter(row => row.word_deck === selectedDeck) : rows;
@@ -82,6 +93,13 @@ const WordViewTable2 = ({ data }) => {
     const columns = [
         { field: 'word_front', headerName: 'Word', width: 150 }, // New column for word_front
         { field: 'word_id', headerName: 'Word ID', width: 150 },
+        {
+            field: 'redDotCount',
+            headerName: 'Red Dot Count',
+            width: 150,
+            hide: true,  // Hide this column
+            sortComparator: (v1, v2) => v1 - v2  // Add sorting logic
+        },
         ...Array.from({ length: maxDots }, (_, i) => ({
             field: `dot${i + 1}`,
             headerName: `Dot ${i + 1}`,
@@ -117,7 +135,7 @@ const WordViewTable2 = ({ data }) => {
                 aria-label="add"
                 style={{
                     position: 'fixed',
-                    bottom: '20px',
+                    bottom: '70px',
                     right: '20px'
                 }}
                 onClick={handleClickOpen}

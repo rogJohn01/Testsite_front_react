@@ -9,7 +9,7 @@ import Barchart from "../components/graphs/barchart";
 
 const fetchDeckCoverageData = async ( deck ,setDeckCoverageData , setDeckCoverageRatioData) => {
     try {
-        const response = await axios.get(`http://localhost:3006/statistics/get_coverage/${deck}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}:3006/statistics/get_coverage/${deck}`);
         const Data = response.data;
         // Convert string to float
 
@@ -26,7 +26,7 @@ const fetchDeckCoverageData = async ( deck ,setDeckCoverageData , setDeckCoverag
 };
 const fetchDeckBarData = async (deck, setDeckBarData) => {
     try {
-        const response = await axios.get(`http://localhost:3006/statistics/get_5_recent_scores/${deck}`);
+        const response = await axios.get( `${process.env.REACT_APP_API_URL}:3006/statistics/get_5_recent_scores/${deck}`);
         const barData = response.data;
 
         if (Array.isArray(barData)) {

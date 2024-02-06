@@ -20,7 +20,7 @@ export default function Review_Drilltable({ match }){
 
     const fetchReviewTable = async (drillId) => {
         try {
-            const url = `http://localhost:3006/record/drill_reviews/${drillId}`;
+            const url = `${process.env.REACT_APP_API_URL}:3006/record/drill_reviews/${drillId}`;
             const response = await axios.get(url) ;
 
             const data = response.data.map((item, index) => ({

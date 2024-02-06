@@ -8,7 +8,7 @@ export default function WordResultTable() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3006/wordview/get_word_view_table')
+        axios.get(`${process.env.REACT_APP_API_URL}:3006/wordview/get_word_view_table`)
             .then(response => {
                 setData(response.data);
             })

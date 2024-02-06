@@ -21,7 +21,7 @@ const Flash7 = () => {
 
   const getTestIndex = async () => {
     try {
-        const url ='http://localhost:3006/testIndex';
+        const url = `${process.env.REACT_APP_API_URL}:3006/testIndex`;
         const response = await axios.get(url) ;
         const data = response.data[0].idx ;
         setTestIndex(data+1) ;
@@ -48,7 +48,7 @@ const Flash7 = () => {
         word_deck :  deckData
     }
 
-    axios.post('http://localhost:3006/send_word_result/' , wordData).then(response => {
+    axios.post(`${process.env.REACT_APP_API_URL}:3006/send_word_result/` , wordData).then(response => {
         console.log(response.data) ; 
     })
     .catch(error => {
@@ -73,7 +73,7 @@ const Flash7 = () => {
 
       console.log('Sending resultData:', resultData);
 
-    axios.post('http://localhost:3006/test_result_table' , resultData).then(response =>{
+    axios.post(`${process.env.REACT_APP_API_URL}:3006/test_result_table` , resultData).then(response =>{
       console.log(response.data) ;
     })
     .catch(error => {
