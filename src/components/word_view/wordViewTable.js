@@ -1,39 +1,33 @@
-import React from "react";
-import "./wordViewTable.css"; // Import the CSS file
+import React from 'react';
+import { DataGrid } from '@mui/x-data-grid';
+import Tooltip from '@mui/material/Tooltip';
+import "./wordViewTable.css"; // Import your CSS file
 
 const generateSampleData = (numRows) => {
     const sampleData = [];
     for (let i = 1; i <= numRows; i++) {
         const word_id = Math.floor(Math.random() * 50) + 1;
         const isCorrect = Math.floor(Math.random() * 2);
-        const test_form = ["A", "B", "C"][Math.floor(Math.random() * 3)];
-        const test_id = Math.floor(Math.random() * 10) + 1;
-        const drill_id = Math.floor(Math.random() * 10) + 1;
         const word_date = `2023-${Math.floor(Math.random() * 12) + 1}-${
             Math.floor(Math.random() * 28) + 1
         }`;
-        const word_user_id = Math.floor(Math.random() * 5) + 1;
-        const word_deck = ["Deck1", "Deck2", "Deck3"][
-            Math.floor(Math.random() * 3)
-            ];
-
+        const test_id = Math.random() > 0.5 ? Math.floor(Math.random() * 10) + 1 : null;
+        const drill_id = test_id ? null : Math.floor(Math.random() * 10) + 1;
         sampleData.push({
+            id: i,
             word_id,
             isCorrect,
-            test_form,
+            word_date,
             test_id,
             drill_id,
-            word_date,
-            word_user_id,
-            word_deck,
         });
     }
     return sampleData;
 };
 
-const WordViewTable = ({ numRows }) => {
-    const data = generateSampleData(numRows);
-    const groupedData = data.reduce((acc, item) => {
+const WordViewTable2 = ({ numRows = 50 }) => {
+    const rawData = generateSampleData(numRows);
+    const groupedData = rawData.reduce((acc, item) => {
         if (!acc[item.word_id]) {
             acc[item.word_id] = [];
         }
@@ -41,49 +35,47 @@ const WordViewTable = ({ numRows }) => {
         return acc;
     }, {});
 
+    const rows = Object.keys(groupedData).map((wordId, index) => {
+        return {
+            id: index,
+            word_id: wordId,
+            ...groupedData[wordId].reduce((acc, data, i) => {
+                acc[`dot${i + 1}`] = data;
+                return acc;
+            }, {}),
+        };
+    });
+
+    const maxDots = Math.max(...Object.values(groupedData).map(arr => arr.length));
+    const columns = [
+        { field: 'word_id', headerName: 'Word ID', width: 150 },
+        ...Array.from({ length: maxDots }, (_, i) => ({
+            field: `dot${i + 1}`,
+            headerName: `Dot ${i + 1}`,
+            width: 100,
+            renderCell: (params) => {
+                const tooltipContent = [
+                    `Date: ${params.value?.word_date || 'N/A'}`,
+                    `Test ID: ${params.value?.test_id !== null ? params.value.test_id : 'N/A'}`,
+                    `Drill ID: ${params.value?.drill_id !== null ? params.value.drill_id : 'N/A'}`
+                ].join('\n');
+
+                return (
+                    <Tooltip title={<pre>{tooltipContent}</pre>} arrow>
+                        <div style={{ color: params.value?.isCorrect ? 'green' : 'red', fontSize: '50px' }}>
+                            •
+                        </div>
+                    </Tooltip>
+                );
+            },
+        })),
+    ];
+
     return (
-        <div style={{ margin: "20px" }}>
-            <table
-                style={{
-                    width: "100%",
-                    borderCollapse: "collapse",
-                    textAlign: "left",
-                    marginBottom: "20px",
-                }}
-            >
-                <thead>
-                <tr style={{ backgroundColor: "#f2f2f2" }}>
-                    <th style={{ padding: "12px", border: "1px solid #ddd" }}>Word ID</th>
-                    <th style={{ padding: "12px", border: "1px solid #ddd" }}>Results</th>
-                </tr>
-                </thead>
-                <tbody>
-                {Object.keys(groupedData).map((wordId) => (
-                    <tr key={wordId}>
-                        <td style={{ padding: "12px", border: "1px solid #ddd" }}>
-                            {wordId}
-                        </td>
-                        {groupedData[wordId].map((item, index) => (
-                            <td
-                                key={index}
-                                className="tooltip"
-                                style={{
-                                    padding: "12px",
-                                    border: "1px solid #ddd",
-                                    color: item.isCorrect ? "green" : "red",
-                                    fontSize: "24px",
-                                    textAlign: "center",
-                                }}
-                            >
-                                •<span className="tooltiptext">{item.word_date}</span>
-                            </td>
-                        ))}
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+        <div style={{ height: '100vh', width: '100%', margin: '20px' }}>
+            <DataGrid rows={rows} columns={columns} pageSize={5} />
         </div>
     );
 };
 
-export default WordViewTable;
+export default WordViewTable2;

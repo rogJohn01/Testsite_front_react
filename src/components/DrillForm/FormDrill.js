@@ -22,19 +22,23 @@ const FormDrill = () => {
   const { contents, setContents } = useContext(wordContext);
   const { deckData , setDeckData} = useContext(wordContext) ;
 
-
   const { readyDrill, setReadyDrill, drillContents, setDrillContents ,drillDeckData, setDrillDeckData } = useContext(wordContext);
 
+  const drillOptions =[ "Recent_dot_score" ,"most_red_dots", "recent_wrongs"]
 
 
   // Declare new state variables
   const [selectedDeck, setSelectedDeck] = useState(decks[0]?.deck_name || '');
   const [amount, setAmount] = useState(10);
+  const [selectedDrillOption, setSelectedDrillOption] = useState(drillOptions[0] || '');
 
-  const fetchDrillContents = async (deck, amount) => {
+
+
+  const fetchDrillContents = async ( drillOption, deck, amount) => {
     if (deck && amount) {
       try {
-        const url = `http://localhost:3006/drill/words/${deck}/${amount}`;
+        const url = `${process.env.REACT_APP_API_URL}:3006/drill/${drillOption}/${deck}/${amount}`;
+        console.log("the current api url" , url )
         const response = await axios.get(url);
         const { data } = response;
         console.log("drillcontents: " , drillContents)
@@ -43,12 +47,16 @@ const FormDrill = () => {
         console.log("drillcontents: " , drillContents)
 
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     } else {
       console.error("deck or amount is undefined");
     }
   };
+
+
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,7 +72,7 @@ const FormDrill = () => {
     console.log("amount: ", amount);
 
     setDrillDeckData(deck);
-    fetchDrillContents(deck, amount);
+    fetchDrillContents( selectedDrillOption , deck, amount );
     console.log('its ready');
   }
 
@@ -94,7 +102,21 @@ const FormDrill = () => {
 
             { /* drill options */ }
             <div className='form-control'>
-              <label htmlFor="decks">Drill options </label>
+              <label htmlFor="drillOptions">Drill options </label>
+              <select
+                  id="drillOptions"
+                  name="drillOptions"
+                  className='form-input'
+                  value={selectedDrillOption}
+                  onChange={e => setSelectedDrillOption(e.target.value)}
+              >
+                {
+                  // Assume customArray is your array of strings
+                  drillOptions.map((item, index) => {
+                    return <option key={index} value={item}>{item}</option>;
+                  })
+                }
+              </select>
 
             </div>
 

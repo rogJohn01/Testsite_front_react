@@ -10,9 +10,11 @@ const GetCardDeck = () => {
 
     const fetchDecks = async () => {
         try {
-            const response = await fetch('http://localhost:3006/decks');
+            const apiUrl = process.env.REACT_APP_API_URL;
+            const response = await fetch(`${apiUrl}:3006/decks`);
             const data = await response.json() ;
             setDecks(data) ;
+            console.log("deckdata: " , data)
             } catch (error) {
                 console.error('Error fetching tables:', error);
 

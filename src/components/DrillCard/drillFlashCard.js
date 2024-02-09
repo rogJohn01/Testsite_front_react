@@ -22,7 +22,7 @@ const DrillCard = () => {
 
   const getDrillIndex = async () => {
     try {
-        const url ='http://localhost:3006/drill/drill_index';
+        const url = `${process.env.REACT_APP_API_URL}:3006/drill/drill_index`;
         const response = await axios.get(url) ; 
         const data = response.data[0].idx ; 
         setDrillIndex(data+1) ;
@@ -60,7 +60,7 @@ const DrillCard = () => {
           word_deck :  drillDeckData
       }
 
-      axios.post('http://localhost:3006/send_word_result/' , wordData).then(response => {
+      axios.post(`${process.env.REACT_APP_API_URL}:3006/send_word_result/` , wordData).then(response => {
           console.log(response.data) ;
       })
           .catch(error => {
@@ -78,7 +78,7 @@ const DrillCard = () => {
         drill_deck : drillDeckData ,
 
     }
-    axios.post('http://localhost:3006/drill/drill_result_table' , resultData).then(response =>{
+    axios.post(`${process.env.REACT_APP_API_URL}:3006/drill/drill_result_table` , resultData).then(response =>{
       console.log(response.data) ;
     })
     .catch(error => {
