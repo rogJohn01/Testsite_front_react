@@ -103,6 +103,9 @@ const Sidebar = ({
               Drill-records <Link to="/Drill_table" />
             </MenuItem>
 
+            <MenuItem>
+              word-result records  <Link to="/WordResultTable" />
+            </MenuItem>
           </SubMenu>
 
           <MenuItem icon={<ImStatsBars />}>

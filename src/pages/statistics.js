@@ -24,7 +24,7 @@ const formatCalendarData = (apiData) => {
 
 const fetchCalendarData = async (setCalendarData) => {
     try {
-        const response = await axios.get('http://localhost:3006/statistics/whole/get_calendar');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}:3006/statistics/whole/get_calendar`);
         const formattedData = formatCalendarData(response.data);
         console.log("Formatted data:", formattedData); // Debug line
         setCalendarData(formattedData);
@@ -35,7 +35,7 @@ const fetchCalendarData = async (setCalendarData) => {
 
 const fetchCoverageData = async ( setCoverageData) => {
     try {
-        const response = await axios.get(`http://localhost:3006/statistics/whole/get_coverage/`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}:3006/statistics/whole/get_coverage/`);
         const coverageData = response.data;
         // Convert string to float
         if (isNaN(coverageData)) {
@@ -52,7 +52,7 @@ const fetchCoverageData = async ( setCoverageData) => {
 
 const fetchBarData = async (setBarData) => {
     try {
-        const response = await axios.get('http://localhost:3006/statistics/whole/get_5_recent_scores/');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}:3006/statistics/whole/get_5_recent_scores/`);
         const barData = response.data;
 
         console.log("bardata from api: ", barData);

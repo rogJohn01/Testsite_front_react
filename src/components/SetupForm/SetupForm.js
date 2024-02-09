@@ -26,7 +26,7 @@ const SetupForm = () => {
   const fetchContents = async (deck , amount) => {
     try {
       // Use the state variables in the URL
-      const url = `http://localhost:3006/words/${deck}/${amount}`;
+      const url = `${process.env.REACT_APP_API_URL}:3006/words/${deck}/${amount}`;
 
       const response = await axios.get(url);
       const { data } = response;
