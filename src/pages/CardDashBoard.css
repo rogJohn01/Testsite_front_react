@@ -1,0 +1,21 @@
+
+.cardDashBoard {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+.dash-header {
+    height: 30vh;
+    width: 100%;
+    background-color: lightpink;
+}
+
+.dash-body {
+    background-color: white;
+    height: 70vh;
+    width: 100%;
+}
