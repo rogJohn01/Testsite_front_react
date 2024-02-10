@@ -45,7 +45,7 @@ const CreateCard = () => {
                         <input
                             type="text"
                             className="input-field question"
-                            placeholder="Who was Muhammad?"
+                            placeholder="Question?"
                             value={flashcard.question}
                             onChange={(e) => handleQuestionChange(index, e)}
                         />
