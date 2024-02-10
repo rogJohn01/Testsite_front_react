@@ -18,6 +18,7 @@ import { useLocation } from 'react-router-dom';
 import SignUp from "./pages/login/signup";
 import Navbar from "./components/Common/navbar";
 import Floatingbuttons from "./components/Common/floatingbuttons";
+import CreateCard from "./pages/createCards";
 
 function App() {
 
@@ -92,7 +93,8 @@ function App() {
           <Route path="/TakeDrill" component={StartDrill} />
          <Route path="/WordResultTable" component={WordResultTable} />
 
-           <Route path='/home' component={Home} />
+        <Route path="/create_card" component={CreateCard} />
+        <Route path='/home' component={Home} />
           <Route path='/' component={Home} />
     </Switch>
     </div>

@@ -23,6 +23,7 @@ import {
   FaTable,
 } from 'react-icons/fa';
 import { ImStatsBars } from 'react-icons/im';
+import { MdAddToPhotos } from "react-icons/md";
 
 import { DiCodeigniter } from "react-icons/di";
 
@@ -83,6 +84,9 @@ const Sidebar = ({
             <NavLink to="/home" />
           </MenuItem>
           {/* <MenuItem icon={<FaGem />}>Components </MenuItem> */}
+          <MenuItem icon={<MdAddToPhotos />}>
+            Create cards  <Link to="/create_card" />
+          </MenuItem>
           <MenuItem icon={<FaGem />}>
             Take Test <Link to="/Take_test" />
           </MenuItem>

@@ -1,0 +1,75 @@
+.flashcard-app {
+    width: 100%;
+    padding: 50px 0; /* Adds padding at the top and bottom */
+    background: rgba(128, 0, 128, 0.2); /* Semi-transparent purple background */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers card container */
+}
+
+.flashcard-header {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.flashcard {
+    background: white; /* White background for the card */
+    padding: 30px;
+    margin-bottom: 10px;
+    max-width: 600px; /* Maximum width of the card */
+    width: 100%; /* Makes the card take the full width of its container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds shadow for depth */
+    border-radius: 10px; /* Rounded corners for the card */
+}
+
+.flashcard-title {
+    font-size: 0.8em;
+    margin-bottom: 10px;
+    text-align: left;
+
+}
+
+.flashcard-body {
+    display: flex;
+    flex-direction: row; /* Aligns the input fields horizontally */
+    gap: 10px;
+    align-items: center; /* Centers the inputs vertically */
+}
+
+.input-field {
+    flex: 1; /* Allows input fields to grow and fill the space */
+    padding: 40px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1em; /* Adjust font size as needed */
+}
+
+/* This is for the question input, which may be narrower */
+.input-field.question {
+    flex-basis: 60%; /* Adjust the percentage as needed */
+}
+
+/* This is for the answer input, which can take the remaining space */
+.input-field.answer {
+    flex-basis: 40%; /* Adjust the percentage as needed */
+}
+
+.flashcard-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
