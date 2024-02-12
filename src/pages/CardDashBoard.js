@@ -1,47 +1,48 @@
-
+import React, { useEffect, useState } from 'react';
 import './CardDashBoard.css';
-
-import notebook_icon from '../../src/assets/images/notebook_icon.png'
+import notebook_icon from '../../src/assets/images/notebook_icon.png';
+import { useHistory } from 'react-router-dom';
+import API from '../services/axiosConfig'; // Adjust the import path to where your API is defined
 
 const CreateCardDashBoard = () => {
+    const [folders, setFolders] = useState([]);
+    const history = useHistory();
 
-    const folders = [
-        { name: 'Folder 1', icon: notebook_icon },
-        { name: 'Folder 2', icon: notebook_icon } ,
-        { name: 'Folder 1', icon: notebook_icon },
-        { name: 'Folder 2', icon: notebook_icon } ,
-        { name: 'Folder 1', icon: notebook_icon },
-        { name: 'Folder 2', icon: notebook_icon } ,
-        { name: 'Folder 1', icon: notebook_icon },
-        { name: 'Folder 2', icon: notebook_icon } ,
-        { name: 'Folder 2', icon: notebook_icon } ,
-        { name: 'add+', icon: notebook_icon } ,
-    ];
+    useEffect(() => {
+        API.get(`${process.env.REACT_APP_API_URL}:3006/decks`) // Use Axios instance to make the GET request
+            .then(response => {
+                const folderData = response.data.map(deck => ({
+                    name: deck.deck_name,
+                    icon: notebook_icon,
+                    route: `deck/${deck.deck_name}`
+                }));
+                // Add the extra folder here
+                const extraFolder = { name: 'add+', icon: notebook_icon, route: '/create_card' };
+                folderData.push(extraFolder); // Append the additional folder to the array
 
-    const FolderBox = ({ name, icon }) => {
+                setFolders(folderData);            })
+            .catch(error => console.error("There was an error fetching the decks:", error));
+    }, []); // Dependency array is empty, so this effect runs only once after the initial render
+
+    const FolderBox = ({ name, icon, route }) => {
         return (
-            <div className="folder-box">
+            <div className="folder-box" onClick={() => history.push(route)}>
                 <img src={icon} alt={name} />
                 <p>{name}</p>
             </div>
         );
     };
 
-
-
     return (
         <div className="cardDashBoard">
-            <div className="dash-header">
-                Hello
-            </div>
+            <div className="dash-header">Hello</div>
             <div className="dash-body">
                 {folders.map((folder, index) => (
-                    <FolderBox key={index} name={folder.name} icon={folder.icon} />
+                    <FolderBox key={index} name={folder.name} icon={folder.icon} route={folder.route} />
                 ))}
             </div>
         </div>
-    )
+    );
+};
 
-}
-
-export default CreateCardDashBoard ;
+export default CreateCardDashBoard;

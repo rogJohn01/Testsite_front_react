@@ -85,7 +85,7 @@ const Sidebar = ({
           </MenuItem>
           {/* <MenuItem icon={<FaGem />}>Components </MenuItem> */}
           <MenuItem icon={<MdAddToPhotos />}>
-            Create cards  <Link to="/create_card" />
+            Create cards  <Link to="/card_dashboard" />
           </MenuItem>
           <MenuItem icon={<FaGem />}>
             Take Test <Link to="/Take_test" />

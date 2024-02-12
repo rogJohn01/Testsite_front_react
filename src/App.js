@@ -21,6 +21,7 @@ import Floatingbuttons from "./components/Common/floatingbuttons";
 import CreateCard from "./pages/createCards";
 import CreateCardDashBoard from "./pages/CardDashBoard";
 import CardDashBoard from "./pages/CardDashBoard";
+import DeckCardList from "./pages/DeckCardList";
 
 function App() {
 
@@ -95,8 +96,12 @@ function App() {
           <Route path="/TakeDrill" component={StartDrill} />
          <Route path="/WordResultTable" component={WordResultTable} />
 
+        // cards
         <Route path="/card_dashboard" component={CardDashBoard} />
         <Route path="/create_card" component={CreateCard} />
+       //<Route path="/deck_cardlist" component={DeckCardList} />
+        <Route path="/deck/:deck_name" component={DeckCardList} />
+
         <Route path='/home' component={Home} />
           <Route path='/' component={Home} />
     </Switch>
