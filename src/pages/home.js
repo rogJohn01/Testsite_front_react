@@ -5,31 +5,30 @@ import Navbar from "../components/Common/navbar";
 export default function Home() {
     const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
-    useEffect(() => {
-        const handleResize = () => {
-            setWindowHeight(window.innerHeight);
-        };
 
-        window.addEventListener('resize', handleResize);
 
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
-    const imgStyle = {
-        height: windowHeight > 1000 ? '80%' : '50%', // Adjust these values as needed
-        width: '100%',
-    };
+    const homeContainer = {
+        height: '100vh' ,
+        width : '100vw' ,
+    }
 
     const imgContainer = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        height: '100%', // Ensure this container fills its parent
+
     };
 
+
+    const imgStyle = {
+        height: '100%', // Adjust these values as needed
+        width: '100%',
+    };
+
+
     return (
-        <div>
+        <div style={homeContainer}>
 
             <div style={imgContainer}>
 

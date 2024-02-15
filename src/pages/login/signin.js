@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 // Copyright component
 function Copyright(props) {
@@ -33,6 +34,9 @@ const defaultTheme = createTheme();
 
 // SignInSide component
 export default function SignInSide() {
+
+    const history = useHistory();
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -45,7 +49,7 @@ export default function SignInSide() {
                 const { token } = response.data;
                 localStorage.setItem('token', token);
                 console.log('Login successful', token);
-                // navigate('/home'); // Uncomment and use if navigation is required
+                history.push('/home'); // Use history.push('/path') to navigate
             })
             .catch((error) => {
                 console.error('Login failed', error);
