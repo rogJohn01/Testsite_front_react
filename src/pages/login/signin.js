@@ -48,22 +48,34 @@ export default function SignInSide() {
         axios
             .post(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_SERVER_PORT_NUM}/login/signin`, { email: email, password: password })
             .then((response) => {
-                 const { token } = response.data;
-                console.log("token: " , response.data); // Check the structure and presence of token
-                //console.log("access token: " , response.data.accessToken )
-                //const { token } =  response.data.accessToken ;
+                const { accessToken } = response.data;
 
-                localStorage.setItem('token', token);
-                console.log("localstorage-token:  after signin" ,localStorage.getItem('token'))
+// Log the value and data type of accessToken
+                console.log("access token value:", accessToken);
+                console.log("access token datatype:", typeof accessToken);
+
+// Convert accessToken to a string if it is not already one
+                const accessTokenString = typeof accessToken === 'string' ? accessToken : JSON.stringify(accessToken);
+
+// Store accessToken in localStorage
+                localStorage.setItem('accesstoken', accessTokenString);
+
+// Retrieve and log the stored value from localStorage to verify
+                const storedAccessToken = localStorage.getItem('accesstoken');
+                console.log("localstorage-accesstoken value: after signin", storedAccessToken);
+                console.log("localstorage-accesstoken datatype: after signin", typeof storedAccessToken);
+
 
                 setIsLoggedIn(true);
 
                 localStorage.setItem('test', 'testValue');
+                localStorage.setItem('test2', 101);
+
                 console.log(localStorage.getItem('test')); // Should log "testValue"
 
 
 
-                console.log('Login successful', token);
+                console.log('Login successful', accessToken);
                 history.push('/home'); // Use history.push('/path') to navigate
 
 

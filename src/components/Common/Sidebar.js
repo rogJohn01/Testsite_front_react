@@ -50,7 +50,7 @@ const Sidebar = ({
   console.log("localstorage-token:  " ,localStorage.getItem('token'))
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); // Remove the token to handle logout
+    localStorage.removeItem('accesstoken'); // Remove the token to handle logout
     setIsLoggedIn(false);
 
   };
