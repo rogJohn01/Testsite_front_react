@@ -25,6 +25,9 @@ const WordContextProvider = ({ children }) => {
     // statistics-specific states
     const [ statisticsDeck , SetStatisticsDeck ] = useState('barron800')
 
+    // login -token
+    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
+
 
     return (
         <wordContext.Provider value={{
@@ -43,7 +46,8 @@ const WordContextProvider = ({ children }) => {
             drillYesCount, setDrillYesCount,
             drillIndex , setDrillIndex ,
             // statistics-specific states
-            statisticsDeck , SetStatisticsDeck
+            statisticsDeck , SetStatisticsDeck,
+            isLoggedIn, setIsLoggedIn
         }}>
             {children}
         </wordContext.Provider>

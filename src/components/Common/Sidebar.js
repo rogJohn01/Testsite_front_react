@@ -1,3 +1,5 @@
+import React, { useContext } from 'react'; // Import useContext
+
 import { Link, NavLink } from 'react-router-dom';
 import {
   ProSidebar,
@@ -30,7 +32,8 @@ import { DiCodeigniter } from "react-icons/di";
 import "./Sidebar.scss"
 import RecordDrill from "../../pages/RecordDrill";
 import { FaSignInAlt, FaUserPlus } from 'react-icons/fa'; // Importing icons
-
+import { FaSignOutAlt } from 'react-icons/fa'; // Importing logout icon
+import { wordContext} from "../../contexts/wordContext";
 
 const Sidebar = ({
   image,
@@ -41,9 +44,17 @@ const Sidebar = ({
 }) => {
 
 
-  const isLoggedIn = !!localStorage.getItem('token');
-  console.log(isLoggedIn)
-  console.log(localStorage.getItem('token'))
+  const { isLoggedIn, setIsLoggedIn } = useContext(wordContext);
+
+ // console.log(isLoggedIn)
+  console.log("localstorage-token:  " ,localStorage.getItem('token'))
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Remove the token to handle logout
+    setIsLoggedIn(false);
+
+  };
+
 
   const style = {
     container: {
@@ -170,10 +181,17 @@ const Sidebar = ({
               </>
           ) : (
               // Render this link if the user is logged in
-              <Link className="sidebar-btn" style={{ cursor: 'pointer' }} to="/profile">
-                <FaUser />
-                <span>My Account</span>
-              </Link>
+              <div style={style.container}>
+
+                <Link className="sidebar-btn" style={{ cursor: 'pointer' }} to="/profile">
+                  <FaUser />
+                  <span>My Account</span>
+                </Link>
+                <Link className="sidebar-btn" onClick={handleLogout} to="/home">
+                  <FaSignOutAlt />
+                  <span> logout </span>
+                </Link>
+              </div>
           )}
         </div>
       </SidebarFooter>

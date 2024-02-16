@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState , useContext } from 'react';
 import './CardDashBoard.css';
-import notebook_icon from '../../src/assets/images/notebook_icon.png';
+import notebook_icon from '../../assets/images/notebook_icon.png';
 import { useHistory } from 'react-router-dom';
-import API from '../services/axiosConfig'; // Adjust the import path to where your API is defined
+import API from '../../services/axiosConfig'; // Adjust the import path to where your API is defined
+import {wordContext} from "../../contexts/wordContext";
 
 const CreateCardDashBoard = () => {
     const [folders, setFolders] = useState([]);
     const history = useHistory();
+    const { isLoggedIn, setIsLoggedIn } = useContext(wordContext);
+
 
     useEffect(() => {
         API.get(`${process.env.REACT_APP_API_URL}:3006/decks`) // Use Axios instance to make the GET request
@@ -22,7 +25,7 @@ const CreateCardDashBoard = () => {
 
                 setFolders(folderData);            })
             .catch(error => console.error("There was an error fetching the decks:", error));
-    }, []); // Dependency array is empty, so this effect runs only once after the initial render
+    }, [isLoggedIn]); // Dependency array now includes isLoggedIn
 
     const FolderBox = ({ name, icon, route }) => {
         return (

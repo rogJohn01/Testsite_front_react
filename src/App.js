@@ -18,10 +18,10 @@ import { useLocation } from 'react-router-dom';
 import SignUp from "./pages/login/signup";
 import Navbar from "./components/Common/navbar";
 import Floatingbuttons from "./components/Common/floatingbuttons";
-import CreateCard from "./pages/createCards";
-import CreateCardDashBoard from "./pages/CardDashBoard";
-import CardDashBoard from "./pages/CardDashBoard";
-import DeckCardList from "./pages/DeckCardList";
+import CreateCard from "./pages/createCards/createCards";
+import CreateCardDashBoard from "./pages/createCards/CardDashBoard";
+import CardDashBoard from "./pages/createCards/CardDashBoard";
+import DeckCardList from "./pages/createCards/DeckCardList";
 
 function App() {
 
