@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,6 +13,9 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { wordContext} from "../../contexts/wordContext";
+
 
 // Copyright component
 function Copyright(props) {
@@ -33,6 +36,9 @@ const defaultTheme = createTheme();
 
 // SignInSide component
 export default function SignInSide() {
+
+    const history = useHistory();
+    const { isLoggedIn, setIsLoggedIn } = useContext(wordContext);
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -42,10 +48,25 @@ export default function SignInSide() {
         axios
             .post(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_SERVER_PORT_NUM}/login/signin`, { email: email, password: password })
             .then((response) => {
-                const { token } = response.data;
+                 const { token } = response.data;
+                console.log("token: " , response.data); // Check the structure and presence of token
+                //console.log("access token: " , response.data.accessToken )
+                //const { token } =  response.data.accessToken ;
+
                 localStorage.setItem('token', token);
+                console.log("localstorage-token:  after signin" ,localStorage.getItem('token'))
+
+                setIsLoggedIn(true);
+
+                localStorage.setItem('test', 'testValue');
+                console.log(localStorage.getItem('test')); // Should log "testValue"
+
+
+
                 console.log('Login successful', token);
-                // navigate('/home'); // Uncomment and use if navigation is required
+                history.push('/home'); // Use history.push('/path') to navigate
+
+
             })
             .catch((error) => {
                 console.error('Login failed', error);
