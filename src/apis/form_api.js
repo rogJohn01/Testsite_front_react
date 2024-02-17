@@ -1,18 +1,21 @@
 
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
+import {wordContext} from "../contexts/wordContext";
+import API from "../services/axiosConfig"
+
 
 const GetCardDeck = () => {
-    const [decks , setDecks] = useState([]) ; 
-    
+    const [decks , setDecks] = useState([]) ;
+    const { isLoggedIn, setIsLoggedIn } = useContext(wordContext);
+
     useEffect(() => {
         fetchDecks();
-    }, []) ; 
+    }, [isLoggedIn]) ;
 
     const fetchDecks = async () => {
         try {
-            const apiUrl = process.env.REACT_APP_API_URL;
-            const response = await fetch(`${apiUrl}:3006/decks`);
-            const data = await response.json() ;
+            const response = await API.get(`/decks`);
+            const data = response.data;
             setDecks(data) ;
             console.log("deckdata: " , data)
             } catch (error) {
@@ -25,3 +28,4 @@ const GetCardDeck = () => {
 
 }
 export default GetCardDeck ; 
+GetCardDeck

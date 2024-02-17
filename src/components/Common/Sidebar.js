@@ -52,6 +52,7 @@ const Sidebar = ({
   const handleLogout = () => {
     localStorage.removeItem('accesstoken'); // Remove the token to handle logout
     setIsLoggedIn(false);
+    window.location.reload(); // Add this line to refresh the page
 
   };
 

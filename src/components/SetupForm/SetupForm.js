@@ -2,8 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import './setUpForm.scss';
 import GetCardDeck from '../../apis/form_api';
 import { wordContext } from '../../contexts/wordContext';
-import axios from 'axios';
-
+import API from '../../services/axiosConfig';
 
 const SetupForm = () => {
   const decks = GetCardDeck();
@@ -23,18 +22,19 @@ const SetupForm = () => {
 
 
 
-  const fetchContents = async (deck , amount) => {
+  const fetchContents = async (deck, amount) => {
     try {
-      // Use the state variables in the URL
-      const url = `${process.env.REACT_APP_API_URL}:3006/words/${deck}/${amount}`;
+      // Assuming `API` is your Axios instance
+      const url = `/words/${deck}/${amount}`; // Adjusted URL to be relative, assuming base URL is set in the Axios instance
 
-      const response = await axios.get(url);
-      const { data } = response;
-      setContents(data);
+      const response = await API.get(url);
+      const data = response.data; // Extracting data from the response
+      setContents(data); // Assuming `setContents` updates your state with the fetched data
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
+
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent form from refreshing the page
