@@ -28,4 +28,3 @@ const GetCardDeck = () => {
 
 }
 export default GetCardDeck ; 
-GetCardDeck
